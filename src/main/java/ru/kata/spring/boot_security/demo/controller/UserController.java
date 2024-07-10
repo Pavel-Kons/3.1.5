@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping(value = "/admin")
     public String admin() {
-        return "admin";
+        return "admin/admin";
     }
 
     @GetMapping(value = "/")
@@ -31,12 +31,12 @@ public class UserController {
                               @RequestParam(value = "count", required = false, defaultValue = "100") Integer count) {
         model.addAttribute("users", userService.getUsers(count));
 
-        return "users";
+        return "user/users";
     }
 
     @GetMapping("/users/newUser")
     public String getNewUserPage(@ModelAttribute("user") User user) {
-        return "newUser";
+        return "user/newUser";
     }
 
     @PostMapping("/users/newUser")
@@ -49,7 +49,7 @@ public class UserController {
     public String getUser(ModelMap model,
                           @RequestParam(value = "id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
-        return "editUser";
+        return "user/editUser";
     }
 
     @PatchMapping(value = "/users")
@@ -61,6 +61,6 @@ public class UserController {
     @DeleteMapping("/users")
     public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
         userService.deleteUser(id);
-        return "redirect:/users";
+        return "redirect:user/users";
     }
 }
