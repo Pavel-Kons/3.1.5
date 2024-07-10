@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping(value = "/admin")
     public String admin() {
-        return "<h2> Hey, admin! </h2>";
+        return "admin";
     }
 
     @GetMapping(value = "/")
