@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Edit user</h1>
-<form th:action="@{/users(id=${user.getId()})}" th:method="PATCH" th:object="${user}">
+<form th:action="@{users(id=${user.getId()})}" th:method="PATCH" th:object="${user}">
     <label for="name">
         Enter Name:
     </label>
@@ -28,7 +28,7 @@
     <br>
     <input type="submit" value="Change this user">
 </form>
-<form th:action="@{/users(id=${user.getId()})}" th:method="DELETE">
+<form th:action="@{users(id=${user.getId()})}" th:method="DELETE">
     <input th:charset="utf-8" type="submit" value="Delete"/>
 </form>
 <h3><a href="/logout"> Logout</a></h3>

@@ -29,18 +29,18 @@ public class AdminController {
 //        return "redirect:users";
 //    }
 
-    @GetMapping("/users/newUser")
+    @GetMapping("/newUser")
     public String getNewUserPage(@ModelAttribute("user") User user) {
         return "admin/newUser";
     }
 
-    @PostMapping("/users/newUser")
+    @PostMapping("/newUser")
     public String createNewUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
-    @GetMapping("/users/editUser")
+    @GetMapping("/editUser")
     public String getUser(ModelMap model,
                           @RequestParam(value = "id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
@@ -50,12 +50,12 @@ public class AdminController {
     @PatchMapping(value = "/users")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping("/users")
     public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
         userService.deleteUser(id);
-        return "redirect:user/users";
+        return "redirect:/admin/users";
     }
 }
