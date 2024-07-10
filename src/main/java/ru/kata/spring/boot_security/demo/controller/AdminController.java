@@ -24,14 +24,10 @@ public class AdminController {
         return "admin/users";
     }
 
-    @GetMapping(value = "/")
-    public String printWelcome(ModelMap model) {
-        return "redirect:users";
-    }
-
-//
-//
-//
+//    @GetMapping(value = "/")
+//    public String printWelcome(ModelMap model) {
+//        return "redirect:users";
+//    }
 
     @GetMapping("/users/newUser")
     public String getNewUserPage(@ModelAttribute("user") User user) {
@@ -62,6 +58,4 @@ public class AdminController {
         userService.deleteUser(id);
         return "redirect:user/users";
     }
-
-
 }

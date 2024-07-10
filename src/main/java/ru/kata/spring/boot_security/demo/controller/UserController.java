@@ -19,6 +19,11 @@ public class UserController {
         return "/user/user";
     }
 
+    @GetMapping(value = "/")
+    public String getLoginPage() {
+        return "redirect:/login";
+    }
+
 /*    @GetMapping(value = "/")
     public String printWelcome(ModelMap model) {
         return "redirect:users";
