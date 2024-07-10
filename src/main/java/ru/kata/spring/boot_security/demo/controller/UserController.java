@@ -36,7 +36,7 @@ public class UserController {
 
     @GetMapping("/users/newUser")
     public String getNewUserPage(@ModelAttribute("user") User user) {
-        return "user/newUser";
+        return "admin/newUser";
     }
 
     @PostMapping("/users/newUser")
@@ -49,7 +49,7 @@ public class UserController {
     public String getUser(ModelMap model,
                           @RequestParam(value = "id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
-        return "user/editUser";
+        return "admin/editUser";
     }
 
     @PatchMapping(value = "/users")
