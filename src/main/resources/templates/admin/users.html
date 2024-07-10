@@ -6,6 +6,7 @@
     <title></title>
 </head>
 <body>
+<h2>Hello Admin!</h2>
 <table>
     <tr>
         <th> Name</th>
@@ -16,7 +17,7 @@
 <h3><a href="/users/newUser">Add new users</a></h3>
 <div th:each="user : ${users}">
     <a th:href="@{/users/editUser(id=${user.getId()})}"
-        th:text="${user.getName()+' '+user.getSurname()+' '+user.getAge()}"User</a>
+       th:text="${user.getName()+' '+user.getSurname()+' '+user.getAge()}"User</a>
 </div>
 <h3><a href="/logout"> Logout</a></h3>
 </body>

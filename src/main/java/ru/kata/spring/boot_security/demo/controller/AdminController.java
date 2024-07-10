@@ -2,35 +2,36 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
-public class UserController {
+@RequestMapping("/admin")
+public class AdminController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/user")
-    public String getUserPage() {
-        return "/user/user";
+    @GetMapping(value = "/users")
+    public String getAllUsers(ModelMap model,
+                              @RequestParam(value = "count", required = false, defaultValue = "100") Integer count) {
+        model.addAttribute("users", userService.getUsers(count));
+        return "admin/users";
     }
 
-/*    @GetMapping(value = "/")
+    @GetMapping(value = "/")
     public String printWelcome(ModelMap model) {
         return "redirect:users";
     }
 
-    @GetMapping(value = "/user")
-    public String getAllUsers(ModelMap model,
-                              @RequestParam(value = "count", required = false, defaultValue = "100") Integer count) {
-        model.addAttribute("users", userService.getUsers(count));
-
-        return "/user";
-    }
+//
+//
+//
 
     @GetMapping("/users/newUser")
     public String getNewUserPage(@ModelAttribute("user") User user) {
@@ -60,5 +61,7 @@ public class UserController {
     public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
         userService.deleteUser(id);
         return "redirect:user/users";
-    }*/
+    }
+
+
 }
