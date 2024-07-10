@@ -16,11 +16,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping(value = "/admin")
+    public String admin() {
+        return "<h2> Hey, admin! </h2>";
+    }
+
     @GetMapping(value = "/")
     public String printWelcome(ModelMap model) {
         return "redirect:users";
     }
-
 
     @GetMapping(value = "/users")
     public String getAllUsers(ModelMap model,
