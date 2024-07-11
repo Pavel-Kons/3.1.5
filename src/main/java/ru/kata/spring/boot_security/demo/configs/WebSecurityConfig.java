@@ -41,18 +41,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("2")
-                        .password("2")
-                        .roles("USER")
-                        .build();
-        UserDetails admin =
-                User.withDefaultPasswordEncoder()
-                        .username("1")
-                        .password("1")
-                        .roles("USER", "ADMIN")
-                        .build();
+        UserDetails user = User.builder()
+                .username("2")
+//              .password("2")
+                .password("{bcrypt}$2y$10$THbjr4CE3jnV3fKAdewDc.mNELyJciRmk9CbpVCfFGfclfFtzBHXu")
+                .roles("USER")
+                .build();
+        UserDetails admin = User.builder()
+                .username("1")
+//              .password("1")
+                .password("{bcrypt}$2y$10$xUfqEqXXiziHNJDhdTQ3R.tBvx/uxqs3InZQSyhzyODggTLIMlwC.")
+                .roles("USER", "ADMIN")
+                .build();
         return new InMemoryUserDetailsManager(user, admin);
     }
 }
