@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 public class MyImpl {
     private final EntityManager entityManager;
 
-    //
     public MyImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
