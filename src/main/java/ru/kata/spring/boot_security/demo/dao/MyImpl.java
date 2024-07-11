@@ -11,6 +11,4 @@ public class MyImpl {
     public MyImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
-
 }
