@@ -8,29 +8,59 @@
 <body>
 <h1>Edit user</h1>
 <form th:action="@{users(id=${user.getId()})}" th:method="PATCH" th:object="${user}">
-    <label for="name">
-        Enter Name:
-    </label>
-    <input id="name" th:charset="utf-8" th:field="*{name}" type="text"/>
-    <br>
-    <br>
-    <label for="surname">
-        Enter Surname:
-    </label>
-    <input id="surname" th:charset="utf-8" th:field="*{surname}" type="text"/>
-    <br>
-    <br>
-    <label for="age">
-        Enter Age:
-    </label>
-    <input id="age" th:charset="utf-8" th:field="*{age}" type="number"/>
-    <br>
+    <p>Id</p>
+    <input th:field="*{id}" type="text"/>
+    <p>First name</p>
+    <input th:field="*{name}" type="text"/>
+    <p>Last name</p>
+    <input th:field="*{surname}" type="text"/>
+    <p>Age</p>
+    <input th:field="*{age}" type="number"/>
+    <p>Email</p>
+    <input th:field="*{email}" type="text"/>
+    <p>Password</p>
+    <input th:field="*{password}" type="text"/>
+
+
+    <!--    <label for="name">-->
+    <!--        Enter Name:-->
+    <!--    </label>-->
+    <!--    <input id="name" th:charset="utf-8" th:field="*{name}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="surname">-->
+    <!--        Enter Surname:-->
+    <!--    </label>-->
+    <!--    <input id="surname" th:charset="utf-8" th:field="*{surname}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="age">-->
+    <!--        Enter Age:-->
+    <!--    </label>-->
+    <!--    <input id="age" th:charset="utf-8" th:field="*{age}" type="number"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="email">-->
+    <!--        Email-->
+    <!--    </label>-->
+    <!--    <input id="email" th:charset="utf-8" th:field="*{email}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="password">-->
+    <!--        Password-->
+    <!--    </label>-->
+    <!--    <input id="password" th:charset="utf-8" th:field="*{password}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+
     <br>
     <input type="submit" value="Change this user">
 </form>
+
+
 <form th:action="@{users(id=${user.getId()})}" th:method="DELETE">
     <input th:charset="utf-8" type="submit" value="Delete"/>
 </form>
-<h3><a href="/logout"> Logout</a></h3>
+<h3><a href="/admin/users"> Close</a><a href="/logout"> Logout</a></h3>
 </body>
 </html>
