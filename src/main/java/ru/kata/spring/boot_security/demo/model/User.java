@@ -25,6 +25,12 @@ public class User implements UserDetails {
     @Column(name = "age")
     private byte age;
 
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
     public User() {
     }
 
