@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -25,19 +26,23 @@ public class User implements UserDetails {
     @Column(name = "age")
     private byte age;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+    @NotBlank
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "password", nullable = false)
+    @NotBlank
+    @Column(name = "password")
     private String password;
 
     public User() {
     }
 
-    public User(String name, String surname, byte age) {
+    public User(String name, String surname, byte age, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -72,27 +77,12 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                '}';
+    public @NotBlank String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, surname, age);
+    public void setEmail(@NotBlank String email) {
+        this.email = email;
     }
 
     @Override
@@ -101,8 +91,12 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return "";
+    public @NotBlank String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotBlank String password) {
+        this.password = password;
     }
 
     @Override
@@ -128,5 +122,30 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return age == user.age && Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, age, email, password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

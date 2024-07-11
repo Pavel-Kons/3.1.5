@@ -17,7 +17,7 @@
 <h3><a href="/admin/newUser">Add new users</a></h3>
 <div th:each="user : ${users}">
     <a th:href="@{/admin/editUser(id=${user.getId()})}"
-       th:text="${user.getName()+' '+user.getSurname()+' '+user.getAge()}"User</a>
+       th:text="${user.getId()+' '+ user.getName()+' '+user.getSurname()+' '+user.getAge()+' '+ user.getEmail() }"User</a>
 </div>
 <h3><a href="/logout"> Logout</a></h3>
 </body>
