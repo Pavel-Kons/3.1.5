@@ -49,8 +49,6 @@ public class User /*implements UserDetails*/ {
         this.password = password;
     }
 
-
-
 /*@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
