@@ -1,17 +1,15 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+@Data
+public class User /*implements UserDetails*/ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -51,55 +49,9 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public byte getAge() {
-        return age;
-    }
-
-    public void setAge(byte age) {
-        this.age = age;
-    }
-
-    public @NotBlank String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@NotBlank String email) {
-        this.email = email;
-    }
-
-    @Override
+/*@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
@@ -136,30 +88,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, surname, age, email, password);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    }*/
 }

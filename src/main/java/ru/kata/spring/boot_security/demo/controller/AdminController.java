@@ -24,11 +24,6 @@ public class AdminController {
         return "admin/users";
     }
 
-//    @GetMapping(value = "/")
-//    public String printWelcome(ModelMap model) {
-//        return "redirect:users";
-//    }
-
     @GetMapping("/newUser")
     public String getNewUserPage(@ModelAttribute("user") User user) {
         return "admin/newUser";
