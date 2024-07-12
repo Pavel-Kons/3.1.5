@@ -51,6 +51,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
     public Long getId() {
         return id;
     }

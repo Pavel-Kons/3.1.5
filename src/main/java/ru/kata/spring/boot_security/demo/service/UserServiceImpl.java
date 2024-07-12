@@ -1,15 +1,23 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
     @Autowired
@@ -21,12 +29,24 @@ public class UserServiceImpl implements UserService {
     public User findByName(String name) {
         return userRepository.findByName(name);
     }
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-//        User user = findByName();
-//        return null;
-//    }
+
+    @Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        User user = findByName(name);
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("There is no %s user", name));
+        }
+        return new org.springframework.security.core.userdetails.User
+                (user.getName(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> rolse) {
+        return rolse
+                .stream()
+                .map(el -> new SimpleGrantedAuthority(el.getName()))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     @Transactional(readOnly = true)
