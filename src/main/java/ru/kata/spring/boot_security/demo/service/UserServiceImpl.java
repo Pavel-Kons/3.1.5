@@ -26,18 +26,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User findByName(String name) {
-        return userRepository.findByName(name);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
+    @Transactional
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = findByName(name);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("There is no %s user", name));
+            throw new UsernameNotFoundException(String.format("There is no %s user", email));
         }
         return new org.springframework.security.core.userdetails.User
-                (user.getName(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
+                (user.getEmail(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> rolse) {
