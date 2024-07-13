@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 (user.getEmail(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> rolse) {
-        return rolse
+    private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> roles) {
+        return roles
                 .stream()
                 .map(el -> new SimpleGrantedAuthority(el.getName()))
                 .collect(Collectors.toList());
