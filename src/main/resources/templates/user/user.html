@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
+<h1>User information-page</h1>
+<h3>About user</h3>
 <table>
     <tr>
         <th> ID</th>
@@ -15,16 +17,15 @@
         <th> Email</th>
         <th> Role</th>
     </tr>
+    <tr th:each="user : ${user}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getRoles()}"></td>
+    </tr>
 </table>
-<span th:text="${user.getId()}"></span> <span th:text="${user.getName()}"> </span> <span
-        th:text="${user.getSurname()}"></span> <span th:text="${user.getAge()}"> </span> <span
-        th:text="${user.getEmail()}"> </span>
-<span th:text="${user.getRoles()}"> </span>
-
-<!--<div th:each="user : ${users}">-->
-<!--    <a th:href="@{/users/editUser(id=${user.getId()})}"-->
-<!--        th:text="${user.getName()+' '+user.getSurname()+' '+user.getAge()}"User</a>-->
-<!--</div>-->
 <h3><a href="/logout"> Logout</a></h3>
 </body>
 </html>
