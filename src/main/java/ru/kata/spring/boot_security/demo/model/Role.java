@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "role")
 @Data
-public class Role /*implements GrantedAuthority */ {
+public class Role implements GrantedAuthority {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +27,10 @@ public class Role /*implements GrantedAuthority */ {
 
     public Role(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return "";
     }
 }

@@ -1,15 +1,18 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
 @Data
-public class User /*implements UserDetails*/ {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -49,18 +52,9 @@ public class User /*implements UserDetails*/ {
         this.password = password;
     }
 
-/*@Override
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
-    }
-
-    @Override
-    public @NotBlank String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NotBlank String password) {
-        this.password = password;
     }
 
     @Override
@@ -86,5 +80,5 @@ public class User /*implements UserDetails*/ {
     @Override
     public boolean isEnabled() {
         return false;
-    }*/
+    }
 }
