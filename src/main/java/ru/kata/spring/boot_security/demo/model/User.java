@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -59,7 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return roles;
     }
 
     @Override
