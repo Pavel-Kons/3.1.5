@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public List<User> getUsers(int count) {
