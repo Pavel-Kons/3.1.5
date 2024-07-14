@@ -39,13 +39,15 @@ public class AdminController {
                 .map(Role::getName)
                 .collect(Collectors.toSet());
         modelMap.addAttribute("roles", objects);
-        
+
         return "admin/newUser";
     }
 
     @PostMapping("/newUser")
-    public String createNewUser(@ModelAttribute("user") User user) {
+    public String createNewUser(@ModelAttribute("user") User user,
+                                @ModelAttribute("roles") String roles) {
         userService.saveUser(user);
+        System.out.println(roles);
         return "redirect:/admin/users";
     }
 

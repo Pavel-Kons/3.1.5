@@ -18,11 +18,11 @@
     <input th:field="*{email}" type="text"/>
     <p>Password</p>
     <input th:field="*{password}" type="text"/>
-
-    <select class="form-control" id="dropDownList">
-        <option value="0">Select Role</option>
-        <option th:each="user : ${roles}" th:text="${user}" th:value="${user}"></option>
+    <p>Role</p>
+    <select multiple name="roles">
+        <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
     </select>
+    <br>
     <!--    <label for="name">-->
     <!--        First name:-->
     <!--    </label>-->

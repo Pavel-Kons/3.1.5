@@ -18,7 +18,7 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     @NotBlank
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, length = 45, unique = true)
     private String name;
 
 //    @ManyToMany(mappedBy = "roles")

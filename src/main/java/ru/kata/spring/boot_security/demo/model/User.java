@@ -30,7 +30,7 @@ public class User implements UserDetails {
     private byte age;
 
     @NotBlank
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank
