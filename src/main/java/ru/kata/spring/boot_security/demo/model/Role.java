@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -23,8 +22,8 @@ public class Role implements GrantedAuthority {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private List<User> users;
 
     public Role() {
     }
