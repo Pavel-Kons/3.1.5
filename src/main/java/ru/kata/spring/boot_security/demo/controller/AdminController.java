@@ -4,17 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.dao.RoleRepository;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleRepository roleRepository) {
         this.userService = userService;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping(value = "/users")
@@ -25,7 +32,14 @@ public class AdminController {
     }
 
     @GetMapping("/newUser")
-    public String getNewUserPage(@ModelAttribute("user") User user) {
+    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
+        Set<String> objects = roleRepository
+                .findAll()
+                .stream()
+                .map(Role::getName)
+                .collect(Collectors.toSet());
+        modelMap.addAttribute("roles", objects);
+        
         return "admin/newUser";
     }
 
