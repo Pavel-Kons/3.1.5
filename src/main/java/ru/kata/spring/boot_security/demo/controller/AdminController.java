@@ -36,14 +36,6 @@ public class AdminController {
     @PostMapping("/newUser")
     public String createNewUser(@ModelAttribute("user") User user,
                                 @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
-        System.out.println(selectedRoles);
         userService.saveUser(user);
         return "redirect:/admin/users";
     }
