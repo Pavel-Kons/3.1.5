@@ -47,8 +47,15 @@ public class AdminController {
     }
 
     @PostMapping("/newUser")
-    public String createNewUser(@ModelAttribute("user") User user) {
-        user.setRoles(roleRepository.findAllByName("USER"));
+    public String createNewUser(@ModelAttribute("user") User user,
+                                @RequestParam(name = "selectedRoles", required = false) String selectedRoles) {
+        System.out.println(selectedRoles);
+        System.out.println(selectedRoles);
+        System.out.println(selectedRoles);
+        System.out.println(selectedRoles);
+        System.out.println(selectedRoles);
+        System.out.println(selectedRoles);
+        user.setRoles(roleRepository.findAllByName(selectedRoles));
         userService.saveUser(user);
         return "redirect:/admin/users";
     }
