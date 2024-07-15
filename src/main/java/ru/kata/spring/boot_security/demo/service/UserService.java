@@ -10,7 +10,7 @@ public interface UserService {
 
     void saveUser(User user, Set<String> roles);
 
-    void updateUser(User user);
+    void updateUser(User user, Set<String> roles);
 
     void deleteUser(Long id);
 

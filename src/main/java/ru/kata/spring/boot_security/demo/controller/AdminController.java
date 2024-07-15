@@ -44,12 +44,15 @@ public class AdminController {
     public String getUser(ModelMap model,
                           @RequestParam(value = "id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("roles", userService.getAllRolesNames());
+
         return "admin/editUser";
     }
 
     @PatchMapping(value = "/users")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userService.updateUser(user);
+    public String updateUser(@ModelAttribute("user") User user,
+                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
+        userService.updateUser(user, selectedRoles);
         return "redirect:/admin/users";
     }
 

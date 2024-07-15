@@ -22,13 +22,12 @@
     <input th:field="*{password}" type="text"/>
 
     <br>
-
+    <label>
+        <select multiple name="selectedRoles">
+            <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
+        </select>
+    </label>
     <br>
-<!--    <label for="user">Role</label>-->
-<!--    <select id="user" name="user">-->
-<!--        <option value="ADMIN">ADMIN</option>-->
-<!--        <option value="USER">USER</option>-->
-<!--    </select>-->
 
     <!--    <label for="name">-->
     <!--        Enter Name:-->

@@ -85,8 +85,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void updateUser(User user) {
-        user.setRoles(roleRepository.findAllByName("USER"));
+    public void updateUser(User user, Set<String> roles) {
+        if (roles == null) {
+            user.setRoles(roleRepository.findAllByName("USER"));
+        } else {
+            user.setRoles(roleRepository.findAllByNameIn(roles));
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
