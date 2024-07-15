@@ -21,7 +21,7 @@
     <p>Role</p>
     <label>
         <select multiple name="selectedRoles">
-            <option th:each="name : ${roles}" th:text="${name}" th:value="${roles}"></option>
+            <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
         </select>
     </label>
     <br>
