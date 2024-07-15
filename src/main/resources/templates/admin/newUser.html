@@ -20,7 +20,7 @@
     <input th:field="*{password}" type="text"/>
     <p>Role</p>
     <select multiple name="roles">
-        <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
+        <option th:each="name : ${roles}" th:text="${name}" th:value="${String}"></option>
     </select>
     <br>
     <!--    <label for="name">-->

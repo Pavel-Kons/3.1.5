@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.dao.RoleRepository;
+import ru.kata.spring.boot_security.demo.dao.UserRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -17,11 +18,13 @@ import java.util.stream.Collectors;
 public class AdminController {
     private final UserService userService;
     private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdminController(UserService userService, RoleRepository roleRepository) {
+    public AdminController(UserService userService, RoleRepository roleRepository, UserRepository userRepository) {
         this.userService = userService;
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping(value = "/users")
@@ -46,8 +49,9 @@ public class AdminController {
     @PostMapping("/newUser")
     public String createNewUser(@ModelAttribute("user") User user,
                                 @ModelAttribute("roles") String roles) {
+        user.setRoles(roleRepository.findAllByName("USER"));
         userService.saveUser(user);
-        System.out.println(roles);
+
         return "redirect:/admin/users";
     }
 
@@ -60,6 +64,7 @@ public class AdminController {
 
     @PatchMapping(value = "/users")
     public String updateUser(@ModelAttribute("user") User user) {
+        user.setRoles(roleRepository.findAllByName("USER"));
         userService.updateUser(user);
         return "redirect:/admin/users";
     }
