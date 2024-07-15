@@ -47,11 +47,9 @@ public class AdminController {
     }
 
     @PostMapping("/newUser")
-    public String createNewUser(@ModelAttribute("user") User user,
-                                @ModelAttribute("roles") String roles) {
+    public String createNewUser(@ModelAttribute("user") User user) {
         user.setRoles(roleRepository.findAllByName("USER"));
         userService.saveUser(user);
-
         return "redirect:/admin/users";
     }
 
