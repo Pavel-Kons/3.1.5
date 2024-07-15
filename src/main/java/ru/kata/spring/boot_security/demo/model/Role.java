@@ -9,8 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "role")
 @Data
-//@Getter
-//@Setter
 public class Role implements GrantedAuthority {
     @Id
     @Column(name = "id")

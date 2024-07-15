@@ -12,8 +12,6 @@ import java.util.Collection;
 @Entity
 @Table(name = "user")
 @Data
-//@Getter
-//@Setter
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,14 +43,6 @@ public class User implements UserDetails {
     private Collection<Role> roles;
 
     public User() {
-    }
-
-    public User(String name, String surname, byte age, String email, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.email = email;
-        this.password = password;
     }
 
     @Override
