@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.kata.spring.boot_security.demo.security.UserDetailsServiceSecurity;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 @Configuration
@@ -16,11 +17,13 @@ import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserServiceImpl userServiceImpl;
+    private final UserDetailsServiceSecurity userDetailsServiceSecurity;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImpl userServiceImpl) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImpl userServiceImpl, UserDetailsServiceSecurity userDetailsServiceSecurity) {
         this.successUserHandler = successUserHandler;
         this.userServiceImpl = userServiceImpl;
+        this.userDetailsServiceSecurity = userDetailsServiceSecurity;
     }
 
     @Override
@@ -48,26 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userServiceImpl);
+        authenticationProvider.setUserDetailsService(userDetailsServiceSecurity);
         return authenticationProvider;
     }
-
-    // аутентификация inMemory
-/*    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("2")
-//              .password("2")
-                .password("{bcrypt}$2y$10$THbjr4CE3jnV3fKAdewDc.mNELyJciRmk9CbpVCfFGfclfFtzBHXu")
-                .roles("USER")
-                .build();
-        UserDetails admin = User.builder()
-                .username("1")
-//              .password("1")
-                .password("{bcrypt}$2y$10$xUfqEqXXiziHNJDhdTQ3R.tBvx/uxqs3InZQSyhzyODggTLIMlwC.")
-                .roles("USER", "ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
-    }*/
 }

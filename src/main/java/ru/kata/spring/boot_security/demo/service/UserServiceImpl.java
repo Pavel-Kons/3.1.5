@@ -2,11 +2,6 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +10,12 @@ import ru.kata.spring.boot_security.demo.dao.UserRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
@@ -67,23 +61,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(first);
     }
 
-    @Transactional
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("There is no %s user", email));
-        }
-        return new org.springframework.security.core.userdetails.User
-                (user.getEmail(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
-    }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> roles) {
-        return roles
-                .stream()
-                .map(el -> new SimpleGrantedAuthority("ROLE_" + el.getName()))
-                .collect(Collectors.toList());
-    }
+//    @Transactional
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        User user = findByEmail(email);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("There is no %s user", email));
+//        }
+//        return new org.springframework.security.core.userdetails.User
+//                (user.getEmail(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
+//    }
+//
+//    private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> roles) {
+//        return roles
+//                .stream()
+//                .map(el -> new SimpleGrantedAuthority("ROLE_" + el.getName()))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     @Transactional(readOnly = true)
