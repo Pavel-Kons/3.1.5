@@ -13,14 +13,14 @@ import javax.annotation.PostConstruct;
 import java.util.HashSet;
 
 @Component
-public class Init {
+public class DBInit {
     private final UserRepository userRepository;
     private final UserServiceImpl userService;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public Init(UserRepository userRepository, UserServiceImpl userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public DBInit(UserRepository userRepository, UserServiceImpl userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.roleRepository = roleRepository;
