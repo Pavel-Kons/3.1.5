@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DBInit {
@@ -29,15 +29,20 @@ public class DBInit {
 
     @PostConstruct
     private void createAdminAndUser() {
-        HashSet<Role> adminRole = new HashSet<>(roleRepository.findAllByName("ADMIN"));
-        HashSet<Role> userRole = new HashSet<>(roleRepository.findAllByName("USER"));
-        User first = new User("", "", (byte) 0, "1", "1", adminRole);
-        User user = new User("admin", "adminovich", (byte) 17, "admin@mail.ru", "1", adminRole);
-        User admin = new User("user", "userovich", (byte) 18, "user@mail.ru", "1", userRole);
+        Role adminRole = new Role("ADMIN");
+        Role userRole = new Role("USER");
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
+        roleRepository.save(adminRole);
+        roleRepository.save(userRole);
+
+        User first = new User("", "", (byte) 0, "1", "1", Set.of(adminRole));
+        User user = new User("admin", "adminovich", (byte) 17, "admin@mail.ru", "1", Set.of(adminRole));
+        User admin = new User("user", "userovich", (byte) 18, "user@mail.ru", "1", Set.of(userRole));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         first.setPassword(passwordEncoder.encode(first.getPassword()));
-        userRepository.deleteAll();
+
         userRepository.save(user);
         userRepository.save(admin);
         userRepository.save(first);
