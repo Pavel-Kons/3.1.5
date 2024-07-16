@@ -37,8 +37,9 @@ public class Init {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         first.setPassword(passwordEncoder.encode(first.getPassword()));
-//        userRepository.save(user);
-//        userRepository.save(admin);
-//        userRepository.save(first);
+        userRepository.deleteAll();
+        userRepository.save(user);
+        userRepository.save(admin);
+        userRepository.save(first);
     }
 }
