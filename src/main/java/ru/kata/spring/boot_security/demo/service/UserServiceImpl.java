@@ -49,6 +49,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
+    public void initializeDB() {
+        Role adminRole = new Role("ADMIN");
+        Role userRole = new Role("USER");
+//        userRepository.deleteAll();
+//        roleRepository.deleteAll();
+
+        User first = new User("", "", (byte) 0, "1", "1", Set.of(adminRole));
+        User user = new User("admin", "adminovich", (byte) 17, "admin@mail.ru", "1", Set.of(adminRole));
+        User admin = new User("user", "userovich", (byte) 18, "user@mail.ru", "1", Set.of(userRole));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        first.setPassword(passwordEncoder.encode(first.getPassword()));
+
+        userRepository.save(user);
+        userRepository.save(admin);
+        userRepository.save(first);
+    }
+
+    @Transactional
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = findByEmail(email);
         if (user == null) {
@@ -106,4 +126,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User getUserById(Long id) {
         return userRepository.findById(id).get();
     }
+
 }

@@ -19,4 +19,6 @@ public interface UserService {
     User findByEmail(String name);
 
     Set<String> getAllRolesNames();
+
+    void initializeDB();
 }
