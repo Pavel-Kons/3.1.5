@@ -52,7 +52,7 @@ public class AdminController {
     @PatchMapping(value = "/users")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
-        userService.updateUser(user, selectedRoles);
+        userService.saveUser(user, selectedRoles);
         return "redirect:/admin/users";
     }
 

@@ -46,10 +46,8 @@ public class UserServiceImpl implements UserService {
     public void initializeDB() {
         Role adminRole = new Role("ADMIN");
         Role userRole = new Role("USER");
-//        userRepository.deleteAll();
-//        roleRepository.deleteAll();
 
-        User first = new User("", "", (byte) 0, "1", "1", Set.of(adminRole));
+        User first = new User("", "", (byte) 1, "1", "1", Set.of(adminRole));
         User user = new User("admin", "adminovich", (byte) 17, "admin@mail.ru", "1", Set.of(adminRole));
         User admin = new User("user", "userovich", (byte) 18, "user@mail.ru", "1", Set.of(userRole));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -61,24 +59,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(first);
     }
 
-//    @Transactional
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        User user = findByEmail(email);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(String.format("There is no %s user", email));
-//        }
-//        return new org.springframework.security.core.userdetails.User
-//                (user.getEmail(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
-//    }
-//
-//    private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> roles) {
-//        return roles
-//                .stream()
-//                .map(el -> new SimpleGrantedAuthority("ROLE_" + el.getName()))
-//                .collect(Collectors.toList());
-//    }
-
     @Override
     @Transactional(readOnly = true)
     public List<User> getUsers(int count) {
@@ -88,18 +68,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user, Set<String> roles) {
-        if (roles == null) {
-            user.setRoles(roleRepository.findAllByName("USER"));
-        } else {
-            user.setRoles(roleRepository.findAllByNameIn(roles));
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-
-    @Override
-    @Transactional
-    public void updateUser(User user, Set<String> roles) {
         if (roles == null) {
             user.setRoles(roleRepository.findAllByName("USER"));
         } else {
