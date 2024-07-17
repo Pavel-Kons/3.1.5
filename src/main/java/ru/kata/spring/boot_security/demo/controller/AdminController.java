@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
 import java.util.Set;
 
 @Controller
@@ -21,8 +22,10 @@ public class AdminController {
 
     @GetMapping(value = "/users")
     public String getAllUsers(ModelMap model,
-                              @RequestParam(value = "count", required = false, defaultValue = "100") Integer count) {
+                              @RequestParam(value = "count", required = false, defaultValue = "100") Integer count,
+                              Principal principal) {
         model.addAttribute("users", userService.getUsers(count));
+        model.addAttribute("user", userService.findByEmail(principal.getName()));
         return "admin/users";
     }
 
