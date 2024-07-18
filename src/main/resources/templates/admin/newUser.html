@@ -8,59 +8,59 @@
 </head>
 
 <body>
-    <h3>Add new user</h3>
-    <form th:action="@{/admin/newUser}" th:method="POST" th:object="${user}">
-        <p>First name</p>
-        <input th:field="*{name}" type="text" />
-        <p>Last name</p>
-        <input th:field="*{surname}" type="text" />
-        <p>Age</p>
-        <input th:field="*{age}" type="number" />
-        <p>Email</p>
-        <input th:field="*{email}" type="text" />
-        <p>Password</p>
-        <input th:field="*{password}" type="text" />
-        <p>Role</p>
-        <label>
-            <select multiple name="selectedRoles">
-                <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
-            </select>
-        </label>
-        <br>
-        <!--    <label for="name">-->
-        <!--        First name:-->
-        <!--    </label>-->
-        <!--    <input id="name" th:field="*{name}" type="text"/>-->
-        <!--    <br>-->
-        <!--    <br>-->
-        <!--    <label for="surname">-->
-        <!--        Last name:-->
-        <!--    </label>-->
-        <!--    <input id="surname" th:field="*{surname}" type="text"/>-->
-        <!--    <br>-->
-        <!--    <br>-->
-        <!--    <label for="age">-->
-        <!--        Age:-->
-        <!--    </label>-->
-        <!--    <input id="age" th:field="*{age}" type="number"/>-->
-        <!--    <br>-->
-        <!--    <br>-->
-        <!--    <label for="email">-->
-        <!--        Email:-->
-        <!--    </label>-->
-        <!--    <input id="email" th:field="*{email}" type="text"/>-->
-        <!--    <br>-->
-        <!--    <br>-->
-        <!--    <label for="password">-->
-        <!--        Password:-->
-        <!--    </label>-->
-        <!--    <input id="password" th:field="*{password}" type="text"/>-->
-        <!--    <br>-->
-        <!--    <br>-->
-        <br>
-        <input type="submit" value="Add new user">
-    </form>
-    <h3><a href="/admin/users"> Close</a><a href="/logout"> Logout</a></h3>
+<h3>Add new user</h3>
+<form th:action="@{/admin/newUser}" th:method="POST" th:object="${user}">
+    <p>First name</p>
+    <input th:field="*{name}" type="text"/>
+    <p>Last name</p>
+    <input th:field="*{surname}" type="text"/>
+    <p>Age</p>
+    <input th:field="*{age}" type="number"/>
+    <p>Email</p>
+    <input th:field="*{email}" type="text"/>
+    <p>Password</p>
+    <input th:field="*{password}" type="text"/>
+    <p>Role</p>
+    <label>
+        <select multiple name="selectedRoles">
+            <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
+        </select>
+    </label>
+    <br>
+    <!--    <label for="name">-->
+    <!--        First name:-->
+    <!--    </label>-->
+    <!--    <input id="name" th:field="*{name}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="surname">-->
+    <!--        Last name:-->
+    <!--    </label>-->
+    <!--    <input id="surname" th:field="*{surname}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="age">-->
+    <!--        Age:-->
+    <!--    </label>-->
+    <!--    <input id="age" th:field="*{age}" type="number"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="email">-->
+    <!--        Email:-->
+    <!--    </label>-->
+    <!--    <input id="email" th:field="*{email}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <label for="password">-->
+    <!--        Password:-->
+    <!--    </label>-->
+    <!--    <input id="password" th:field="*{password}" type="text"/>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <br>
+    <input type="submit" value="Add new user">
+</form>
+<h3><a href="/admin/users"> Close</a><a href="/logout"> Logout</a></h3>
 </body>
 
 </html>
