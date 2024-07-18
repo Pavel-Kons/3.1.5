@@ -26,6 +26,8 @@ public class AdminController {
                               Principal principal) {
         model.addAttribute("users", userService.getUsers(count));
         model.addAttribute("user", userService.findByEmail(principal.getName()));
+        model.addAttribute("roles", userService.getAllRolesNames());
+
         return "admin/users";
     }
 
@@ -48,6 +50,7 @@ public class AdminController {
                           @RequestParam(value = "id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", userService.getAllRolesNames());
+
 
         return "admin/editUser";
     }
