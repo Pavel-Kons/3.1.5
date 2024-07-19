@@ -20,9 +20,9 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admin")
-    public String getAllUsers(ModelMap model,
-                              @RequestParam(value = "count", required = false, defaultValue = "100") Integer count,
-                              Principal principal) {
+    public String getAdminPage(ModelMap model,
+                               @RequestParam(value = "count", required = false, defaultValue = "100") Integer count,
+                               Principal principal) {
         model.addAttribute("users", userService.getUsers(count));
         model.addAttribute("user", userService.findByEmail(principal.getName()));
         model.addAttribute("roles", userService.getAllRolesNames());
