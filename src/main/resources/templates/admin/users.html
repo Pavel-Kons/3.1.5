@@ -260,18 +260,11 @@
 
 
                         <div class="d-flex modal-body justify-content-center bg-white p-2">
-                            <form>
                                 <div class="d-flex flex-column  text-center">
 
 
-<!--                                    <form th:action="@{users(id=${user.getId()})}" th:method="PATCH"-->
-<!--                                          th:object="${user}">-->
-
 
                                     <form th:action="@{/admin/newUser}" th:method="POST" th:object="${user}">
-
-
-
 
                                         <div class="mb-3">
                                             <label for="first-name" class="form-label">First name</label>
@@ -330,7 +323,6 @@
                                         <br>
                                     </form>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
