@@ -53,12 +53,12 @@ public class AdminController {
 //        return "redirect:/admin";
 //    }
 //
-//    @PatchMapping(value = "/users")
-//    public String updateUser(@ModelAttribute("user") User user,
-//                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
-//        userService.saveUser(user, selectedRoles);
-//        return "redirect:/admin";
-//    }
+    @PatchMapping(value = "/users")
+    public String updateUser(@ModelAttribute("user") User user,
+                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
+        userService.saveUser(user, selectedRoles);
+        return "redirect:/admin";
+    }
 //
     @DeleteMapping("/users")
     public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
