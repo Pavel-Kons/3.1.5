@@ -11,7 +11,6 @@ import java.security.Principal;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
 
@@ -20,7 +19,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/admin")
     public String getAllUsers(ModelMap model,
                               @RequestParam(value = "count", required = false, defaultValue = "100") Integer count,
                               Principal principal) {
@@ -28,43 +27,42 @@ public class AdminController {
         model.addAttribute("user", userService.findByEmail(principal.getName()));
         model.addAttribute("roles", userService.getAllRolesNames());
 
-        return "admin/users";
+        return "admin/admin";
     }
 
-    @GetMapping("/newUser")
-    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
-        modelMap.addAttribute("roles", userService.getAllRolesNames());
-
-        return "admin/newUser";
-    }
-
-    @PostMapping("/newUser")
+//    @GetMapping("/newUser")
+//    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
+//        modelMap.addAttribute("roles", userService.getAllRolesNames());
+//
+//        return "redirect:/admin/admin";
+//    }
+//
+    @PostMapping("/admin/newUser")
     public String createNewUser(@ModelAttribute("user") User user,
                                 @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
         userService.saveUser(user, selectedRoles);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
-
-    @GetMapping("/editUser")
-    public String getUser(ModelMap model,
-                          @RequestParam(value = "id") Long id) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", userService.getAllRolesNames());
-
-
-        return "admin/editUser";
-    }
-
-    @PatchMapping(value = "/users")
-    public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
-        userService.saveUser(user, selectedRoles);
-        return "redirect:/admin/users";
-    }
-
-    @DeleteMapping("/users")
-    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin/users";
-    }
+//
+//    @GetMapping("/editUser")
+//    public String getUser(ModelMap model,
+//                          @RequestParam(value = "id") Long id) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        model.addAttribute("roles", userService.getAllRolesNames());
+//
+//        return "redirect:/admin/admin";
+//    }
+//
+//    @PatchMapping(value = "/users")
+//    public String updateUser(@ModelAttribute("user") User user,
+//                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
+//        userService.saveUser(user, selectedRoles);
+//        return "redirect:/admin/admin";
+//    }
+//
+//    @DeleteMapping("/users")
+//    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
+//        userService.deleteUser(id);
+//        return "redirect:/admin/admin";
+//    }
 }
