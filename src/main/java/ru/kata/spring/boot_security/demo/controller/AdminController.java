@@ -27,14 +27,14 @@ public class AdminController {
         model.addAttribute("user", userService.findByEmail(principal.getName()));
         model.addAttribute("roles", userService.getAllRolesNames());
 
-        return "admin/admin";
+        return "/admin";
     }
 
 //    @GetMapping("/newUser")
 //    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
 //        modelMap.addAttribute("roles", userService.getAllRolesNames());
 //
-//        return "redirect:/admin/admin";
+//        return "redirect:/admin";
 //    }
 //
     @PostMapping("/admin/newUser")
@@ -50,19 +50,19 @@ public class AdminController {
 //        model.addAttribute("user", userService.getUserById(id));
 //        model.addAttribute("roles", userService.getAllRolesNames());
 //
-//        return "redirect:/admin/admin";
+//        return "redirect:/admin";
 //    }
 //
 //    @PatchMapping(value = "/users")
 //    public String updateUser(@ModelAttribute("user") User user,
 //                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
 //        userService.saveUser(user, selectedRoles);
-//        return "redirect:/admin/admin";
+//        return "redirect:/admin";
 //    }
 //
 //    @DeleteMapping("/users")
 //    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
 //        userService.deleteUser(id);
-//        return "redirect:/admin/admin";
+//        return "redirect:/admin";
 //    }
 }
