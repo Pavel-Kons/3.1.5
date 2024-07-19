@@ -69,10 +69,19 @@
                     <h4>All users</h4>
 
 
+
+                    <h1>★★★★★★★★★★★★★★★</h1>
+                    <h1>ALL USER TABLE</h1>
+                    <h1>★★★★★★★★★★★★★★★</h1>
+
+
+
+
 <!--                    <div th:each="user : ${users}">-->
 <!--                        <a th:href="@{/admin/editUser(id=${user.getId()})}"-->
-<!--                           th:text="${user.getId()+' '+ user.getName()+' '+user.getSurname()+' '+user.getAge()+' '+ user.getEmail() +' '+ user.getRoles()}"User</a>-->
+<!--                           th:text="${user.getId()+' '+ user.getName()+' '+user.getSurname()+' '+user.getAge()+' '+ user.getEmail() +' '+ user.getRoles()}" User </a>-->
 <!--                    </div>-->
+
 
 
                     <table class="table table-striped">
@@ -119,6 +128,12 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
+
+
+
+                                <h1>★★★★★★★★★★★★★★★</h1>
+                                <h1>EDIT USER</h1>
+                                <h1>★★★★★★★★★★★★★★★</h1>
 
 
 
@@ -193,6 +208,44 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
+
+                                            <h1>★★★★★★★★★★★★★★★</h1>
+                                            <h1>DELETE USER</h1>
+                                            <h1>★★★★★★★★★★★★★★★</h1>
+
+
+
+                                <form th:action="@{users(id=${user.getId()})}" th:method="PATCH" th:object="${user}">
+                                    <p>Id</p>
+                                    <input th:field="*{id}" type="text"/>
+                                    <p>First name</p>
+                                    <input th:field="*{name}" type="text"/>
+                                    <p>Last name</p>
+                                    <input th:field="*{surname}" type="text"/>
+                                    <p>Age</p>
+                                    <input th:field="*{age}" type="number"/>
+                                    <p>Email</p>
+                                    <input th:field="*{email}" type="text"/>
+                                    <p>Password</p>
+                                    <input th:field="*{password}" type="password"/>
+
+                                    <br>
+                                    <label>
+                                        <select multiple name="selectedRoles">
+                                            <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
+                                        </select>
+                                    </label>
+                                    <br>
+                                    <br>
+                                    <input type="submit" value="Change this user">
+                                </form>
+
+                                <form th:action="@{users(id=${user.getId()})}" th:method="DELETE">
+                                    <input th:charset="utf-8" type="submit" value="Delete CURRENT USER"/>
+                                </form>
+
+
+
                                 <div class="modal-body">
                                         <div class="mb-3 text-center">
                                             <form th:action="@{users(id=${user.getId()})}" th:method="PATCH"

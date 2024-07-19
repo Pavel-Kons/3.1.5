@@ -60,9 +60,9 @@ public class AdminController {
 //        return "redirect:/admin";
 //    }
 //
-//    @DeleteMapping("/users")
-//    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
-//        userService.deleteUser(id);
-//        return "redirect:/admin";
-//    }
+    @DeleteMapping("/users")
+    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
+        userService.deleteUser(id);
+        return "redirect:/admin";
+    }
 }
