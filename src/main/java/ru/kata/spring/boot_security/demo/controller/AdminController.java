@@ -36,13 +36,6 @@ public class AdminController {
         return "/admin";
     }
 
-    //    @GetMapping("/newUser")
-//    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
-//        modelMap.addAttribute("roles", userService.getAllRolesNames());
-//
-//        return "redirect:/admin";
-//    }
-//
     @PostMapping("/admin/newUser")
     public String createNewUser(@ModelAttribute("user") User user,
                                 @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
@@ -50,16 +43,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    //
-//    @GetMapping("/editUser")
-//    public String getUser(ModelMap model,
-//                          @RequestParam(value = "id") Long id) {
-//        model.addAttribute("user", userService.getUserById(id));
-//        model.addAttribute("roles", userService.getAllRolesNames());
-//
-//        return "redirect:/admin";
-//    }
-//
     @PatchMapping(value = "/users")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
@@ -67,7 +50,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    //
     @DeleteMapping("/users")
     public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
         userService.deleteUser(id);
