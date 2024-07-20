@@ -42,7 +42,11 @@ public class AdminController {
 
         userService.saveUser(user, (Set<String>) adminRole);
     }
-//deleteUser
+
+    @GetMapping("/deleteuser")
+    public void deleteUser(@RequestParam long id) {
+        userService.deleteUser(id);
+    }
 //editUser
 
 
