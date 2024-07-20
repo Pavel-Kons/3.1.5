@@ -1,16 +1,17 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-@Controller
+@RestController
 public class AdminController {
     private final UserService userService;
 
@@ -19,18 +20,23 @@ public class AdminController {
         this.userService = userService;
     }
 
+    @GetMapping(value = "/allusers")
+    public List<User> getAllUsers() {
+        return new ArrayList<>(userService.getAllUsers());
+    }
+
     @GetMapping(value = "/admin")
     public String getAdminPage(ModelMap model,
                                @RequestParam(value = "count", required = false, defaultValue = "100") Integer count,
                                Principal principal) {
-        model.addAttribute("users", userService.getUsers(count));
+        model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("user", userService.findByEmail(principal.getName()));
         model.addAttribute("roles", userService.getAllRolesNames());
 
         return "/admin";
     }
 
-//    @GetMapping("/newUser")
+    //    @GetMapping("/newUser")
 //    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
 //        modelMap.addAttribute("roles", userService.getAllRolesNames());
 //
@@ -43,7 +49,8 @@ public class AdminController {
         userService.saveUser(user, selectedRoles);
         return "redirect:/admin";
     }
-//
+
+    //
 //    @GetMapping("/editUser")
 //    public String getUser(ModelMap model,
 //                          @RequestParam(value = "id") Long id) {
@@ -59,7 +66,8 @@ public class AdminController {
         userService.saveUser(user, selectedRoles);
         return "redirect:/admin";
     }
-//
+
+    //
     @DeleteMapping("/users")
     public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
         userService.deleteUser(id);
