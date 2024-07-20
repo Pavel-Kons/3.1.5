@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface UserService {
-    List<User> getUsers(int count);
+    List<User> getAllUsers();
 
     void saveUser(User user, Set<String> roles);
 
