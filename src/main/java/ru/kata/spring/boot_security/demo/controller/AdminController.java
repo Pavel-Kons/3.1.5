@@ -29,7 +29,7 @@ public class AdminController {
 
         return "/admin";
     }
-//
+
 //    @GetMapping("/newUser")
 //    public String getNewUserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
 //        modelMap.addAttribute("roles", userService.getAllRolesNames());
