@@ -18,28 +18,30 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/allusers")
+    @GetMapping("/users")
     public List<User> getAllUsers() {
         return new ArrayList<>(userService.getAllUsers());
     }
 
-    @GetMapping("/getUser")
-    public User getUserById(@RequestParam long id) {
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable long id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/newuser")
-    public void addNewUser(@RequestBody UserDTO userDTO) {
+    @PostMapping("/users")
+    public UserDTO addNewUser(@RequestBody UserDTO userDTO) {
         userService.saveOrUpdateUser(userDTO);
+        return userDTO;
     }
 
-    @PutMapping("/editUser")
-    public void editUser(@RequestBody UserDTO userDTO) {
+    @PutMapping("/users")
+    public UserDTO editUser(@RequestBody UserDTO userDTO) {
         userService.saveOrUpdateUser(userDTO);
+        return userDTO;
     }
 
-    @DeleteMapping("/deleteuser")
-    public void deleteUser(@RequestParam long id) {
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
     }
 
