@@ -30,16 +30,6 @@ public class AdminController {
 
     @PostMapping("/newuser")
     public void addNewUser(@RequestBody UserDTO userDTO) {
-
-
-       /* Role adminRole = new Role("ADMIN");
-        Role userRole = new Role("USER");
-        Set<String> objects = new HashSet<>();
-        objects.add("ADMIN");
-        objects.add("USER");
-        User user1 = new User("Test", "Tester", (byte) 99, "asd@122", "1", Set.of(adminRole));
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));*/
-
         userService.saveUser(userDTO);
     }
 
