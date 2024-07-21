@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleRepository;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
+import ru.kata.spring.boot_security.demo.dto.UserDTO;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -47,9 +48,9 @@ public class UserServiceImpl implements UserService {
         Role adminRole = new Role("ADMIN");
         Role userRole = new Role("USER");
 
-        User first = new User("admin", "adminovich", (byte) 1, "1", "1", Set.of(adminRole));
-        User user = new User("admin", "adminovich", (byte) 17, "admin@mail.ru", "1", Set.of(adminRole));
-        User admin = new User("user", "userovich", (byte) 18, "user@mail.ru", "1", Set.of(userRole));
+        User first = new User(null, "admin", "adminovich", (byte) 1, "1", "1", Set.of(adminRole));
+        User user = new User(null, "admin", "adminovich", (byte) 17, "admin@mail.ru", "1", Set.of(adminRole));
+        User admin = new User(null, "user", "userovich", (byte) 18, "user@mail.ru", "1", Set.of(userRole));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         first.setPassword(passwordEncoder.encode(first.getPassword()));
@@ -67,13 +68,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(User user, Set<String> roles) {
-        if (roles == null) {
+    public void saveUser(UserDTO userDTO) {
+        User user = User.builder()
+                .password(passwordEncoder.encode(userDTO.getPassword()))
+                .age(userDTO.getAge())
+                .email(userDTO.getEmail())
+                .name(userDTO.getName())
+                .surname(userDTO.getSurname())
+//                .roles()
+                .build();
+
+        if (userDTO.getRoles() == null) {
             user.setRoles(roleRepository.findAllByName("USER"));
         } else {
-            user.setRoles(roleRepository.findAllByNameIn(roles));
+            user.setRoles(roleRepository.findAllByNameIn(userDTO.getRoles()));
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

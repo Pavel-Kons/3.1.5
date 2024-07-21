@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "user")
 @Data
+@Builder
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +49,8 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, byte age, String email, String password, Collection<Role> roles) {
+    public User(Long id, String name, String surname, byte age, String email, String password, Collection<Role> roles) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;

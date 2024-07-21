@@ -1,17 +1,13 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import ru.kata.spring.boot_security.demo.model.Role;
+import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.dto.UserDTO;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class AdminController {
@@ -33,17 +29,21 @@ public class AdminController {
     }
 
     @PostMapping("/newuser")
-    public void addNewUser() {
-        Role adminRole = new Role("ADMIN");
+    public void addNewUser(@RequestBody UserDTO userDTO) {
+
+
+       /* Role adminRole = new Role("ADMIN");
         Role userRole = new Role("USER");
+        Set<String> objects = new HashSet<>();
+        objects.add("ADMIN");
+        objects.add("USER");
+        User user1 = new User("Test", "Tester", (byte) 99, "asd@122", "1", Set.of(adminRole));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));*/
 
-        User user = new User("Test", "Tester", (byte) 99, "asd@122", "1", Set.of(adminRole));
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        userService.saveUser(user, (Set<String>) adminRole);
+        userService.saveUser(userDTO);
     }
 
-    @GetMapping("/deleteuser")
+    @DeleteMapping("/deleteuser")
     public void deleteUser(@RequestParam long id) {
         userService.deleteUser(id);
     }
