@@ -68,22 +68,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(UserDTO userDTO) {
-        User user = User.builder()
-                .password(passwordEncoder.encode(userDTO.getPassword()))
-                .age(userDTO.getAge())
-                .email(userDTO.getEmail())
-                .name(userDTO.getName())
-                .surname(userDTO.getSurname())
-//                .roles()
-                .build();
-
+    public void saveOrUpdateUser(UserDTO userDTO) {
+        User user;
+        if (userDTO.getId() == null) {
+            user = new User();
+        } else {
+            user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new RuntimeException("User not found"));
+        }
+        user.setName(userDTO.getName());
+        user.setSurname(userDTO.getSurname());
+        user.setAge(userDTO.getAge());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         if (userDTO.getRoles() == null) {
             user.setRoles(roleRepository.findAllByName("USER"));
         } else {
             user.setRoles(roleRepository.findAllByNameIn(userDTO.getRoles()));
         }
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

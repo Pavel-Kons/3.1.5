@@ -30,14 +30,18 @@ public class AdminController {
 
     @PostMapping("/newuser")
     public void addNewUser(@RequestBody UserDTO userDTO) {
-        userService.saveUser(userDTO);
+        userService.saveOrUpdateUser(userDTO);
+    }
+
+    @PutMapping("/editUser")
+    public void editUser(@RequestBody UserDTO userDTO) {
+        userService.saveOrUpdateUser(userDTO);
     }
 
     @DeleteMapping("/deleteuser")
     public void deleteUser(@RequestParam long id) {
         userService.deleteUser(id);
     }
-//editUser
 
 
 //    ********************
