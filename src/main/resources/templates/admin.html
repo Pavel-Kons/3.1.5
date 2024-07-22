@@ -354,15 +354,15 @@
     // fetch(url)
     //     .then(response => response.json())
     //     .then(json => console.log(json))
-    fetch(url)
-        .then(response => response.json())
-        .then(json => json.forEach(
-            item => {
-                console.log(item.id)
-                console.log(item.name)
-                console.log(item.username)
-            }
-        ))
+    // fetch(url)
+    //     .then(response => response.json())
+    //     .then(json => json.forEach(
+    //         item => {
+    //             console.log(item.id)
+    //             console.log(item.name)
+    //             console.log(item.username)
+    //         }
+    //     ))
 
     $(async function () {
         await getTableWithUsers();
