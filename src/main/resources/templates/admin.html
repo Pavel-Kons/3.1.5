@@ -325,6 +325,37 @@
 
     </div>
 </div>
+
+
+<table class="table table-striped" id="testTable">
+    <thead>
+    <tr>
+        <th> ID</th>
+        <th> First Name</th>
+        <th> Last Name</th>
+        <th> Age</th>
+        <th> Email</th>
+        <th> Role</th>
+        <th> Edit</th>
+        <th> Delete</th>
+    </tr>
+    </thead>
+    <tbody id="testTable2">
+
+    </tbody>
+    <!--    <tr>-->
+    <!--        <td></td>-->
+    <!--        <td>111</td>-->
+    <!--        <td>111</td>-->
+    <!--        <td>111</td>-->
+    <!--        <td>111</td>-->
+    <!--        <td>111</td>-->
+    <!--        <td>111</td>-->
+    <!--        <td>111</td>-->
+    <!--    </tr>-->
+</table>
+
+
 <script src="webjars/jquery/3.7.1/jquery.js"></script>
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 <!--<script>-->
@@ -332,21 +363,30 @@
 <!--</script>-->
 
 <script>
+    const url = "http://localhost:8080/users/"
     // //*********************************************
     // //Get SINGE USER
-    // fetch('http://localhost:8080/users/1')
+    // fetch(url + "1")
     //     .then(response => response.json())
     //     .then(json => console.log(json))
 
 
     // //*********************************************
     // // Get all users
-    // fetch('http://localhost:8080/users/')
+    // fetch(url)
     //     .then(response => response.json())
     //     .then(json => console.log(json))
+    fetch(url)
+        .then(response => response.json())
+        .then(json => json.forEach(
+            item => {
+                console.log(item.id)
+                console.log(item.name)
+                console.log(item.username)
+            }
+        ))
 
-
-    // fetch('http://localhost:8080/users/')
+    // fetch(url)
     //     .then((res) => res.json())
     //     .then((data) => {
     //         console.log(data)
@@ -358,7 +398,7 @@
 
     //*********************************************
     //Add new user
-    // fetch("http://localhost:8080/users", {
+    // fetch(url, {
     //     method: "POST",
     //     body: JSON.stringify({
     //         name: "Test",
@@ -378,7 +418,7 @@
 
     //*********************************************
     //Update user
-    // fetch("http://localhost:8080/users", {
+    // fetch(url, {
     //     method: "PUT",
     //     body: JSON.stringify({
     //         id: "1",
@@ -399,34 +439,9 @@
 
     //*********************************************
     //Delete user
-    // fetch("http://localhost:8080/users/1", {
+    // fetch(url, {
     //     method: "DELETE"
     // })
-
-
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    // input = $.getJSON("http://localhost:8080/users/1", function (data) {
-    //     console.log(data.name)
-    //     console.log(data.surname)
-    //     console.log(data.age)
-    //     console.log(data.email)
-    //     console.log(data.password)
-    //     console.log(data.roles)
-    // })
-
-    // let promise = await fetch('http://localhost:8080/users/1')
-    // let text = await promise.text();
-    // console.log(text)
 </script>
 </body>
 
