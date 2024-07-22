@@ -72,6 +72,7 @@
 
 
                     <table class="table table-striped" id="allUsersTable">
+                        <thead>
                         <tr>
                             <th> ID</th>
                             <th> First Name</th>
@@ -82,6 +83,10 @@
                             <th> Edit</th>
                             <th> Delete</th>
                         </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
                         <tr th:each="user : ${users}">
                             <td th:text="${user.getId()}"></td>
                             <td th:text="${user.getName()}"></td>
@@ -249,6 +254,8 @@
 
 
                 </div>
+
+
                 <div aria-labelledby="nav-profile-tab" class="tab-pane fade" id="nav-profile" role="tabpanel">
                     <div class="container-fluid p-2">
                         <h3>Add new user</h3>
@@ -327,35 +334,6 @@
 </div>
 
 
-<table class="table table-striped" id="testTable">
-    <thead>
-    <tr>
-        <th> ID</th>
-        <th> First Name</th>
-        <th> Last Name</th>
-        <th> Age</th>
-        <th> Email</th>
-        <th> Role</th>
-        <th> Edit</th>
-        <th> Delete</th>
-    </tr>
-    </thead>
-    <tbody id="testTable2">
-
-    </tbody>
-    <!--    <tr>-->
-    <!--        <td></td>-->
-    <!--        <td>111</td>-->
-    <!--        <td>111</td>-->
-    <!--        <td>111</td>-->
-    <!--        <td>111</td>-->
-    <!--        <td>111</td>-->
-    <!--        <td>111</td>-->
-    <!--        <td>111</td>-->
-    <!--    </tr>-->
-</table>
-
-
 <script src="webjars/jquery/3.7.1/jquery.js"></script>
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 <!--<script>-->
@@ -385,6 +363,82 @@
                 console.log(item.username)
             }
         ))
+
+    $(async function () {
+        await getTableWithUsers();
+        // getNewUserForm();
+        // getDefaultModal();
+        // addNewUser();
+    })
+
+    const userFetchService = {
+        head: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Referer': null
+        },
+        // bodyAdd : async function(user) {return {'method': 'POST', 'headers': this.head, 'body': user}},
+        findAllUsers: async () => await fetch('/users'),
+        findOneUser: async (id) => await fetch(`/users/${id}`),
+        addNewUser: async (user) => await fetch('/users', {
+            method: 'POST',
+            headers: userFetchService.head,
+            body: JSON.stringify(user)
+        }),
+        updateUser: async (user, id) => await fetch(`/users/${id}`, {
+            method: 'PUT',
+            headers: userFetchService.head,
+            body: JSON.stringify(user)
+        }),
+        deleteUser: async (id) => await fetch(`/users/${id}`, {method: 'DELETE', headers: userFetchService.head})
+    }
+
+
+    async function getTableWithUsers() {
+        let table = $('#allUsersTable tbody');
+        table.empty();
+
+        await userFetchService.findAllUsers()
+            .then(res => res.json())
+            .then(users => {
+                users.forEach(user => {
+                    let tableFilling = `$(
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.age}</td>
+                            <td>${user.email}</td>
+                            <td>${user.roles.map(role => role.name.concat(" "))}</td>
+                            <td>
+                                <button type="button" data-user-id="${user.id}" data-action="edit" class="btn btn-info"
+                                data-toggle="modal" data-target="#editModal">Edit</button>
+                            </td>
+                            <td>
+                                <button type="button" data-user-id="${user.id}" data-action="delete" class="btn btn-danger"
+                                data-toggle="modal" data-target="#deleteModal">Delete</button>
+                            </td>
+                        </tr>
+                )`;
+                    table.append(tableFilling);
+                })
+            })
+
+        // обрабатываем нажатие на любую из кнопок edit или delete
+        // достаем из нее данные и отдаем модалке, которую к тому же открываем
+        $("#mainTableWithUsers").find('button').on('click', (event) => {
+            let defaultModal = $('#someDefaultModal');
+
+            let targetButton = $(event.target);
+            let buttonUserId = targetButton.attr('data-userid');
+            let buttonAction = targetButton.attr('data-action');
+
+            defaultModal.attr('data-userid', buttonUserId);
+            defaultModal.attr('data-action', buttonAction);
+            defaultModal.modal('show');
+        })
+    }
+
 
     // fetch(url)
     //     .then((res) => res.json())
