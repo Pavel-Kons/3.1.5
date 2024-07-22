@@ -341,7 +341,7 @@
 <!--</script>-->
 
 <script>
-    const url = "http://localhost:8080/users/"
+    const url = "http://localhost:8080/api/users/"
     // //*********************************************
     // //Get SINGE USER
     // fetch(url + "1")
@@ -378,9 +378,9 @@
             'Referer': null
         },
         // bodyAdd : async function(user) {return {'method': 'POST', 'headers': this.head, 'body': user}},
-        findAllUsers: async () => await fetch('/users'),
-        findOneUser: async (id) => await fetch(`/users/${id}`),
-        addNewUser: async (user) => await fetch('/users', {
+        findAllUsers: async () => await fetch('/api/users'),
+        findOneUser: async (id) => await fetch(`/api/users/${id}`),
+        addNewUser: async (user) => await fetch('/api/users', {
             method: 'POST',
             headers: userFetchService.head,
             body: JSON.stringify(user)
