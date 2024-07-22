@@ -337,15 +337,15 @@
     // fetch('http://localhost:8080/users/1')
     //     .then(response => response.json())
     //     .then(json => console.log(json))
-    //
-    //
+
+
     // //*********************************************
     // // Get all users
     // fetch('http://localhost:8080/users/')
     //     .then(response => response.json())
     //     .then(json => console.log(json))
-    //
-    //
+
+
     // fetch('http://localhost:8080/users/')
     //     .then((res) => res.json())
     //     .then((data) => {
@@ -359,12 +359,33 @@
     //*********************************************
     //Add new user
     // fetch("http://localhost:8080/users", {
-    //     method: "Post",
+    //     method: "POST",
     //     body: JSON.stringify({
     //         name: "Test",
     //         surname: "Tester",
     //         age: 99,
     //         email: "test2@mail.ru",
+    //         password: "1",
+    //         roles: ["ADMIN", "USER"]
+    //     }),
+    //     headers: {
+    //         "Content-type": "application/json; charset=UTF-8"
+    //     }
+    // })
+    //     .then(res => res.json())
+    //     .then(data => console.log(data))
+
+
+    //*********************************************
+    //Update user
+    // fetch("http://localhost:8080/users", {
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //         id: "1",
+    //         name: "Updated",
+    //         surname: "Updated!",
+    //         age: 99,
+    //         email: "updated@mail.ru",
     //         password: "1",
     //         roles: ["ADMIN", "USER"]
     //     }),
@@ -383,6 +404,17 @@
     // })
 
 
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
     // input = $.getJSON("http://localhost:8080/users/1", function (data) {
     //     console.log(data.name)
     //     console.log(data.surname)
