@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html lang="en">
 
 <head>
@@ -19,19 +19,9 @@
 
 <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #343a3f;">
     <div class="container-fluid">
-        <div th:each="user : ${user}">
-            <font color="#f0f8ff"> <b> <a th:text="${user.getEmail()}"> User </a></b> </font>
-        </div>
-        <p> &nbsp;&nbsp;&nbsp; </p>
-        <div>
-            <font color="#f0f8ff"> with roles: </font>
-        </div>
-        <p> &nbsp;&nbsp;&nbsp; </p>
-
-        <div th:each="user : ${user}">
-            <font color="#f0f8ff"> <a th:text="${user.getRoles()}"> User </a> </font>
-        </div>
-
+        <a class="navbar-brand text-white ">
+            <span id="currentUserNavbar"></span>
+        </a>
         <div class="collapse navbar-collapse show" id="navbarDark">
             <ul class="navbar-nav me-auto mb-2 mb-xl-0">
             </ul>
@@ -76,6 +66,28 @@
 
 <script src="webjars/jquery/3.7.1/jquery.js"></script>
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function () {
+        await showUserNameOnNavbar()
+    });
+
+    async function dataAboutCurrentUser() {
+        const response = await fetch("/api/users/currentUser")
+        return await response.json();
+    }
+
+
+    async function showUserNameOnNavbar() {
+        const currentUserNavbar = document.getElementById("currentUserNavbar")
+        const currentUser = await dataAboutCurrentUser();
+        currentUserNavbar.innerHTML =
+            `<strong>${currentUser.username}</strong>
+                 with roles:
+                 ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
+    }
+</script>
+
 
 <script>
     const url = "http://localhost:8080/api/users/"
