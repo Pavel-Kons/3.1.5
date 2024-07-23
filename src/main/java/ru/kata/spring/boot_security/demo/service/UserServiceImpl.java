@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         Role adminRole = new Role("ADMIN");
         Role userRole = new Role("USER");
 
-        User first = new User(null, "admin", "adminovich", (byte) 1, "1", "1", Set.of(adminRole));
+        User first = new User(null, "1", "1", (byte) 1, "1", "1", Set.of(adminRole));
         User user = new User(null, "admin", "adminovich", (byte) 17, "admin@mail.ru", "1", Set.of(adminRole));
         User admin = new User(null, "user", "userovich", (byte) 18, "user@mail.ru", "1", Set.of(userRole));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
