@@ -281,7 +281,8 @@
                                     <label class="fw-bold"> Role </label>
                                     <select aria-label="multiple select example" class="form-select fw-bold"
                                             multiple name="selectedRoles" size="2">
-                                        <option th:each="name : ${roles}" th:text="${name}" th:value="${name}"></option>
+                                        <option value="USER">USER</option>
+                                        <option value="ADMIN">ADMIN</option>
                                     </select>
                                     <br>
                                     <button class="btn btn-success" type="submit">Add new user</button>
