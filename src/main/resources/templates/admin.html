@@ -19,19 +19,9 @@
 
 <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #343a3f;">
     <div class="container-fluid">
-        <div th:each="user : ${user}">
-            <font color="#f0f8ff"> <b> <a th:text="${user.getEmail()}"> User </a></b> </font>
-        </div>
-        <p> &nbsp;&nbsp;&nbsp; </p>
-        <div>
-            <font color="#f0f8ff"> with roles: </font>
-        </div>
-        <p> &nbsp;&nbsp;&nbsp; </p>
-
-        <div th:each="user : ${user}">
-            <font color="#f0f8ff"> <a th:text="${user.getRoles()}"> User </a> </font>
-        </div>
-
+        <a class="navbar-brand text-white ">
+            <span id="currentUserNavbar"></span>
+        </a>
         <div class="collapse navbar-collapse show" id="navbarDark">
             <ul class="navbar-nav me-auto mb-2 mb-xl-0">
             </ul>
@@ -370,6 +360,7 @@
     $(async function () {
         await getTableWithUsers();
         await getTableWithCurrentUsers();
+        await getCurrentUserNavbar();
         // getNewUserForm();
         // getDefaultModal();
         // addNewUser();
@@ -382,10 +373,10 @@
             'Referer': null
         },
         // bodyAdd : async function(user) {return {'method': 'POST', 'headers': this.head, 'body': user}},
-        findAllUsers: async () => await fetch('/api/users'),
-        findCurrentUser: async () => await fetch('/api/users/currentUser'),
-        findOneUser: async (id) => await fetch(`/api/users/${id}`),
-        addNewUser: async (user) => await fetch('/api/users', {
+        findAllUsers: async () => await fetch(url),
+        findCurrentUser: async () => await fetch(url + 'currentUser'),
+        findOneUser: async (id) => await fetch(url + `${id}`),
+        addNewUser: async (user) => await fetch(url, {
             method: 'POST',
             headers: userFetchService.head,
             body: JSON.stringify(user)
@@ -464,6 +455,22 @@
                 )`;
                 table.append(tableFilling);
             })
+    }
+
+
+    async function dataAboutCurrentUser() {
+        const response = await fetch(url + "currentUser")
+        return await response.json();
+    }
+
+
+    async function getCurrentUserNavbar() {
+        const currentUserNavbar = document.getElementById("currentUserNavbar")
+        const currentUser = await dataAboutCurrentUser();
+        currentUserNavbar.innerHTML =
+            `<strong>${currentUser.username}</strong>
+                 with roles:
+                 ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
     }
 
 
