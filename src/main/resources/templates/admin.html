@@ -458,15 +458,10 @@
     }
 
 
-    async function dataAboutCurrentUser() {
-        const response = await fetch(url + "currentUser")
-        return await response.json();
-    }
-
-
     async function getCurrentUserNavbar() {
         const currentUserNavbar = document.getElementById("currentUserNavbar")
-        const currentUser = await dataAboutCurrentUser();
+        const response = await fetch(url + "currentUser")
+        const currentUser = await response.json();
         currentUserNavbar.innerHTML =
             `<strong>${currentUser.username}</strong>
                  with roles:
