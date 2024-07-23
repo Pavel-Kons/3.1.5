@@ -309,7 +309,8 @@
              tabindex="0">
             <h1>User information-page</h1>
             <h5>About user</h5>
-            <table class="table table-striped">
+            <table class="table table-striped" id="currentUserTable">
+                <thead>
                 <tr>
                     <th> ID</th>
                     <th> First Name</th>
@@ -318,14 +319,9 @@
                     <th> Email</th>
                     <th> Role</th>
                 </tr>
-                <tr th:each="user : ${user}">
-                    <td th:text="${user.getId()}"></td>
-                    <td th:text="${user.getName()}"></td>
-                    <td th:text="${user.getSurname()}"></td>
-                    <td th:text="${user.getAge()}"></td>
-                    <td th:text="${user.getEmail()}"></td>
-                    <td th:text="${user.getRoles()}"></td>
-                </tr>
+                </thead>
+                <tbody>
+                </tbody>
             </table>
         </div>
 
@@ -373,6 +369,7 @@
 
     $(async function () {
         await getTableWithUsers();
+        await getTableWithCurrentUsers();
         // getNewUserForm();
         // getDefaultModal();
         // addNewUser();
@@ -386,6 +383,7 @@
         },
         // bodyAdd : async function(user) {return {'method': 'POST', 'headers': this.head, 'body': user}},
         findAllUsers: async () => await fetch('/api/users'),
+        findCurrentUser: async () => await fetch('/api/users/currentUser'),
         findOneUser: async (id) => await fetch(`/api/users/${id}`),
         addNewUser: async (user) => await fetch('/api/users', {
             method: 'POST',
@@ -444,6 +442,28 @@
             defaultModal.attr('data-action', buttonAction);
             defaultModal.modal('show');
         })
+    }
+
+
+    async function getTableWithCurrentUsers() {
+        let table = $('#currentUserTable tbody');
+        table.empty();
+
+        await userFetchService.findCurrentUser()
+            .then(res => res.json())
+            .then(user => {
+                let tableFilling = `$(
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.age}</td>
+                            <td>${user.email}</td>
+                            <td>${user.roles.map(role => role.name.concat(" "))}</td>
+                        </tr>
+                )`;
+                table.append(tableFilling);
+            })
     }
 
 
