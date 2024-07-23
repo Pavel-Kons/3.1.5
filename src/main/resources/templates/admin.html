@@ -328,34 +328,7 @@
 
 <script>
     const url = "http://localhost:8080/api/users/"
-    // //*********************************************
-    // //Get SINGE USER
-    // fetch(url + "1")
-    //     .then(response => response.json())
-    //     .then(json => console.log(json))
 
-
-    // //*********************************************
-    // //Get current user
-    // fetch(url + "currentUser")
-    //     .then(response => response.json())
-    //     .then(json => console.log(json))
-
-
-    // //*********************************************
-    // // Get all users
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(json => console.log(json))
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(json => json.forEach(
-    //         item => {
-    //             console.log(item.id)
-    //             console.log(item.name)
-    //             console.log(item.username)
-    //         }
-    //     ))
 
     $(async function () {
         await getTableWithUsers();
@@ -467,64 +440,6 @@
                  with roles:
                  ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
     }
-
-
-    // fetch(url)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         console.log(data)
-    //     })
-    //     .catch((error) => {
-    //         console.log(error)
-    //     })
-
-
-    //*********************************************
-    //Add new user
-    // fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //         name: "Test",
-    //         surname: "Tester",
-    //         age: 99,
-    //         email: "test2@mail.ru",
-    //         password: "1",
-    //         roles: ["ADMIN", "USER"]
-    //     }),
-    //     headers: {
-    //         "Content-type": "application/json; charset=UTF-8"
-    //     }
-    // })
-    //     .then(res => res.json())
-    //     .then(data => console.log(data))
-
-
-    //*********************************************
-    //Update user
-    // fetch(url, {
-    //     method: "PUT",
-    //     body: JSON.stringify({
-    //         id: "1",
-    //         name: "Updated",
-    //         surname: "Updated!",
-    //         age: 99,
-    //         email: "updated@mail.ru",
-    //         password: "1",
-    //         roles: ["ADMIN", "USER"]
-    //     }),
-    //     headers: {
-    //         "Content-type": "application/json; charset=UTF-8"
-    //     }
-    // })
-    //     .then(res => res.json())
-    //     .then(data => console.log(data))
-
-
-    //*********************************************
-    //Delete user
-    // fetch(url, {
-    //     method: "DELETE"
-    // })
 </script>
 </body>
 
