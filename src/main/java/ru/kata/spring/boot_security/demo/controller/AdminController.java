@@ -6,6 +6,7 @@ import ru.kata.spring.boot_security.demo.dto.UserDTO;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class AdminController {
         userService.deleteUser(id);
     }
 
+    @GetMapping("/users/currentUser")
+    public User getCurrentUser(Principal principal) {
+        return userService.findByEmail(principal.getName());
+    }
 
 //    ********************
 //    Standard controller
