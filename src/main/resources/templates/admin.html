@@ -252,42 +252,33 @@
 
                         <div class="d-flex modal-body justify-content-center bg-white p-2">
                             <div class="d-flex flex-column  text-center">
-                                <form th:action="@{/admin/newUser}" th:method="POST" th:object="${user}">
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold" for="first-name">First name</label>
-                                        <input class="form-control" id="first-name" name="name" placeholder="First name"
-                                               type="text">
+                                <div class="container-fluid">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group align-items-center">
+                                            <form data-hidden=true id="defaultSomeForm">
+                                                <input class="form-control" id="AddNewUserFirstName" placeholder="Name"
+                                                       type="text"><br>
+                                                <input class="form-control" id="AddNewUserLastName"
+                                                       placeholder="Last name" type="text"><br>
+                                                <input class="form-control" id="AddNewUserAge" placeholder="age"
+                                                       type="number"><br>
+                                                <input class="form-control" id="AddNewUserPassword"
+                                                       placeholder="password" type="password"><br>
+                                                <input class="form-control" id="AddNewUserEmail" placeholder="Email"
+                                                       type="email"><br>
+                                                <select aria-label="multiple select example" class="form-select fw-bold"
+                                                        id="AddNewUserRoles" multiple name="selectedRoles" size="2">
+                                                    <option value="USER">USER</option>
+                                                    <option value="ADMIN">ADMIN</option>
+                                                </select>
+                                                <br>
+                                                <button class="btn btn-primary mb-2" id="addNewUserButton"
+                                                        type="button">Add new user
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold" for="last-name">Last name</label>
-                                        <input class="form-control" id="last-name" name="surname"
-                                               placeholder="Last name"
-                                               type="text">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold" for="age">Age</label>
-                                        <input class="form-control" id="age" name="age" placeholder="Age" type="number">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold" for="email">Email</label>
-                                        <input class="form-control" id="email" name="email" placeholder="Email"
-                                               type="email">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold" for="password">Password</label>
-                                        <input class="form-control" id="password" name="password" placeholder="Password"
-                                               type="password">
-                                    </div>
-                                    <label class="fw-bold"> Role </label>
-                                    <select aria-label="multiple select example" class="form-select fw-bold"
-                                            multiple name="selectedRoles" size="2">
-                                        <option value="USER">USER</option>
-                                        <option value="ADMIN">ADMIN</option>
-                                    </select>
-                                    <br>
-                                    <button class="btn btn-success" type="submit">Add new user</button>
-                                    <br>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -334,7 +325,7 @@
         await getCurrentUserNavbar();
         // getNewUserForm();
         // getDefaultModal();
-        // addNewUser();
+        addNewUser();
     })
 
     const userFetchService = {
@@ -438,6 +429,48 @@
                  with roles:
                  ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
     }
+
+
+    async function addNewUser() {
+        $('#addNewUserButton').click(async () => {
+            let addUserForm = $('#defaultSomeForm')
+            let name = addUserForm.find('#AddNewUserFirstName').val().trim();
+            let surname = addUserForm.find('#AddNewUserLastName').val().trim();
+            let age = addUserForm.find('#AddNewUserAge').val().trim();
+            let email = addUserForm.find('#AddNewUserEmail').val().trim();
+            let password = addUserForm.find('#AddNewUserPassword').val().trim();
+            let roles = addUserForm.find('#AddNewUserRoles').val();
+            let data = {
+                name: name,
+                surname: surname,
+                age: age,
+                email: email,
+                password: password,
+                roles: roles
+            }
+            const response = await userFetchService.addNewUser(data);
+            if (response.ok) {
+                getTableWithUsers();
+                addUserForm.find('#AddNewUserFirstName').val('');
+                addUserForm.find('#AddNewUserLastName').val('');
+                addUserForm.find('#AddNewUserAge').val('');
+                addUserForm.find('#AddNewUserEmail').val('');
+                addUserForm.find('#AddNewUserPassword').val('');
+                addUserForm.find('#AddNewUserRoles').val('');
+            } else {
+                let body = await response.json();
+                let alert = `<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="sharaBaraMessageError">
+                            ${body.info}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>`;
+                addUserForm.prepend(alert)
+            }
+        })
+    }
+
+
 </script>
 </body>
 
