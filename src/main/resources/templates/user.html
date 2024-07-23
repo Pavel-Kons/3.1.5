@@ -67,27 +67,6 @@
 <script src="webjars/jquery/3.7.1/jquery.js"></script>
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', async function () {
-        await showUserNameOnNavbar()
-    });
-
-    async function dataAboutCurrentUser() {
-        const response = await fetch("/api/users/currentUser")
-        return await response.json();
-    }
-
-
-    async function showUserNameOnNavbar() {
-        const currentUserNavbar = document.getElementById("currentUserNavbar")
-        const currentUser = await dataAboutCurrentUser();
-        currentUserNavbar.innerHTML =
-            `<strong>${currentUser.username}</strong>
-                 with roles:
-                 ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
-    }
-</script>
-
 
 <script>
     const url = "http://localhost:8080/api/users/"
@@ -95,20 +74,21 @@
 
     $(async function () {
         await getTableWithCurrentUsers();
+        await getCurrentUserNavbar();
     })
 
     const userFetchService = {
         head: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Referer': null
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Referer": null
         },
-        findCurrentUser: async () => await fetch('/api/users/currentUser'),
+        findCurrentUser: async () => await fetch(url + "currentUser"),
     }
 
 
     async function getTableWithCurrentUsers() {
-        let table = $('#currentUserTable tbody');
+        let table = $("#currentUserTable tbody");
         table.empty();
 
         await userFetchService.findCurrentUser()
@@ -126,6 +106,22 @@
                 )`;
                 table.append(tableFilling);
             })
+    }
+
+
+    async function dataAboutCurrentUser() {
+        const response = await fetch(url + "currentUser")
+        return await response.json();
+    }
+
+
+    async function getCurrentUserNavbar() {
+        const currentUserNavbar = document.getElementById("currentUserNavbar")
+        const currentUser = await dataAboutCurrentUser();
+        currentUserNavbar.innerHTML =
+            `<strong>${currentUser.username}</strong>
+                 with roles:
+                 ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
     }
 </script>
 
