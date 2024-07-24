@@ -847,10 +847,6 @@
     // *********************************************************************************************************************************************************
 
     document.addEventListener('DOMContentLoaded', async function () {
-        // await showUserNameOnNavbar2()
-        // await fillTableOfAllUsers2();
-        // await fillTableAboutUser();
-        // await addNewUserForm2();
         await DeleteModalHandler2();
         await EditModalHandler2();
     });
@@ -877,7 +873,6 @@
         const usersTable = document.getElementById("allUsersTable");
         const users = await getTableWithUsers();
 
-// ************************************************************************************************************
         let usersTableHTML = "";
         for (let user of users) {
             usersTableHTML +=
