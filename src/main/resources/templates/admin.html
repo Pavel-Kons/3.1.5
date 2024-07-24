@@ -570,8 +570,6 @@
     async function fillModal(modal) {
 
         modal.addEventListener("show.bs.modal", async function (event) {
-            console.log(event.relatedTarget);
-
             const userId = event.relatedTarget.dataset.userId;
             const user = await getUserDataById(userId);
 
