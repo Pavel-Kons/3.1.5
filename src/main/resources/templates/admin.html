@@ -312,6 +312,389 @@
 </div>
 
 
+<div class="container-fluid flex-grow-1">
+    <div class="row h-100">
+
+        <div class="col-2 sidebar d-flex flex-column p-0" id="sidebar-tabs" role="tablist">
+            <div class="list-group">
+
+                <a aria-controls="admin" aria-selected="true"
+                   class="list-group-item list-group-item-action border-0 text-primary active no-refresh"
+                   data-bs-toggle="tab" href="" id="admin-tab" role="tab">
+                    Admin
+                </a>
+                <a class="list-group-item list-group-item-action border-0 text-primary no-refresh"
+                   th:href="@{/user}">
+                    User
+                </a>
+            </div>
+        </div>
+
+
+        <div class="col-10 bg-secondary bg-light">
+            <div class="container-fluid tab-content">
+                <div>
+
+                    <h1 class="pt-3 pb-3">
+                        Admin panel
+                    </h1>
+
+                    <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button aria-controls="users-table" aria-selected="true" class="nav-link no-refresh active"
+                                    data-bs-target="#admin-users-table" data-bs-toggle="tab" id="admin-users-table-tab"
+                                    role="tab"
+                                    type="button">
+                                Users table
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button aria-controls="add-user-tab" aria-selected="false" class="nav-link no-refresh"
+                                    data-bs-target="#add-user"
+                                    data-bs-toggle="tab" id="new-user-tab" role="tab" type="button">
+                                New User
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div aria-labelledby="users-table" class="tab-pane fade show active" id="admin-users-table"
+                             role="tabpanel">
+
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                <tr>
+                                    <td class="container-fluid">
+                                        <h4>
+                                            All Users
+                                        </h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="container-fluid">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th class="col" scope="col">Name</th>
+                                                <th class="col" scope="col">Surname</th>
+                                                <th class="col" scope="col">Password</th>
+                                                <th class="col" scope="col">Roles</th>
+                                                <th class="col" scope="col">Edit</th>
+                                                <th class="col" scope="col">Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="usersTableId">
+                                            <tr>
+
+                                                <div class="modal fade" id="editModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="editLabel">Edit
+                                                                    user</h1>
+                                                                <button aria-label="Close" class="btn-close"
+                                                                        data-bs-dismiss="modal" type="button">
+                                                                </button>
+                                                            </div>
+
+
+                                                            <div class="modal-body">
+                                                                <form id="formEditUser">
+
+
+                                                                    <fieldset>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label"
+                                                                                   for="idEdit">Id</label>
+                                                                            <input class="form-control"
+                                                                                   data-user-id="id"
+                                                                                   id="idEdit" name="id"
+                                                                                   type="text"/>
+                                                                            <span class="text-danger"
+                                                                                  id="idEditError">
+                                                                        </span>
+                                                                        </div>
+                                                                    </fieldset>
+
+
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label"
+                                                                               for="nameEdit">First name</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="name"
+                                                                               id="nameEdit" name="name"
+                                                                               type="text"/>
+                                                                        <span class="text-danger"
+                                                                              id="usernameEditError">
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="surnameEdit">Last name</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="surname"
+                                                                               id="surnameEdit" name="surname"
+                                                                               type="text"/>
+                                                                        <span class="text-danger"
+                                                                              id="surnameEditError">
+                                                                        </span>
+                                                                    </div>
+
+
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label"
+                                                                               for="ageEdit">Age</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="age"
+                                                                               id="ageEdit" name="age"
+                                                                               type="number"/>
+                                                                        <span class="text-danger"
+                                                                              id="ageEditError">
+                                                                        </span>
+                                                                    </div>
+                                                                    <!--******************************************************************************************-->
+                                                                    <!--EDIT USER MODEL-->
+                                                                    <!--******************************************************************************************-->
+
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label"
+                                                                               for="emailEdit">Email</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="email"
+                                                                               id="emailEdit" name="email"
+                                                                               type="text"/>
+                                                                        <span class="text-danger"
+                                                                              id="emailEditError">
+                                                                        </span>
+                                                                    </div>
+
+
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="passwordEdit">Password</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="password"
+                                                                               id="passwordEdit" name="password"
+                                                                               type="password"/>
+                                                                        <span class="text-danger"
+                                                                              id="passwordEditError">
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="allRolesEdit"><b>Role</b></label>
+                                                                        <select class="form-control"
+                                                                                data-user-id="allRolesEdit"
+                                                                                id="allRolesEdit" multiple
+                                                                                name="roles"
+                                                                                required
+                                                                                size="2">
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button aria-label="Close"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal"
+                                                                                type="button">Close
+                                                                        </button>
+                                                                        <button class="btn btn-primary"
+                                                                                data-bs-dismiss="modal"
+                                                                                type="submit">
+                                                                            Edit
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="modal fade" id="deleteModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5">Delete user</h1>
+                                                                <button aria-label="Close" class="btn-close"
+                                                                        data-bs-dismiss="modal" type="button">
+                                                                </button>
+                                                            </div>
+
+
+                                                            <!--******************************************************************************************-->
+                                                            <!--DELETE USER MODEL-->
+                                                            <!--******************************************************************************************-->
+
+
+                                                            <div class="modal-body">
+                                                                <form id="formDeleteUser">
+
+
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="idDelete">Id</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="id"
+                                                                               id="idDelete" name="id"
+                                                                               readonly type="text"/>
+                                                                    </div>
+
+
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="nameDelete">First name</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="name"
+                                                                               id="nameDelete" name="name"
+                                                                               readonly type="text"/>
+                                                                    </div>
+
+
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="surnameDelete">Last name</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="surname"
+                                                                               id="surnameDelete"
+                                                                               name="surname"
+                                                                               readonly type="text"/>
+                                                                    </div>
+
+
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="ageDelete">Age</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="age"
+                                                                               id="ageDelete"
+                                                                               name="age"
+                                                                               readonly type="number"/>
+                                                                    </div>
+
+
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label"
+                                                                               for="emailDelete">Email</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="email"
+                                                                               id="emailDelete" name="email"
+                                                                               readonly type="text"/>
+                                                                    </div>
+
+
+                                                                    <div class="mb-2">
+                                                                        <label class="col-form-label"
+                                                                               for="passwordDelete">Password</label>
+                                                                        <input class="form-control"
+                                                                               data-user-id="password"
+                                                                               id="passwordDelete" name="password"
+                                                                               readonly type="password"/>
+                                                                    </div>
+
+                                                                    <div class="mb-2">
+                                                                        <label for="allRolesDelete"><b>Role</b></label>
+                                                                        <select class="form-control"
+                                                                                data-user-id="allRolesDelete"
+                                                                                id="allRolesDelete"
+                                                                                name="roles"
+                                                                                size="2">
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button aria-label="Close"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal"
+                                                                                type="button">Close
+                                                                        </button>
+                                                                        <button class="btn btn-danger"
+                                                                                data-bs-dismiss="modal"
+                                                                                type="submit">
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div aria-labelledby="add-user-tab" class="tab-pane fade" id="add-user" role="tabpanel">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                <tr>
+                                    <td class="container-fluid">
+                                        <h5 class="mt-3">Add new user</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="container-fluid">
+                                        <div class="card-body text-center">
+                                            <div class="col-md-4 offset-md-4">
+                                                <form id="addNewUser">
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label" for="usernameNew">Username</label>
+                                                        <input class="form-control" id="usernameNew"
+                                                               name="username" placeholder="Username"
+                                                               type="text"/>
+                                                        <span class="text-danger" id="usernameError">
+                                                        </span>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label"
+                                                               for="surnameNew">surname</label>
+                                                        <input class="form-control" id="surnameNew"
+                                                               name="surname" placeholder="surname"
+                                                               type="text"/>
+                                                        <span class="text-danger" id="surnameError">
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label" for="passwordNew">Password</label>
+                                                        <input class="form-control" id="passwordNew"
+                                                               name="password" placeholder="Password"
+                                                               type="password"/>
+                                                        <span class="text-danger" id="passwordError">
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="rolesNew">Role</label>
+                                                        <select class="custom-select form-control" id="rolesNew"
+                                                                multiple
+                                                                name="roles"
+                                                                required
+                                                                size="2">
+                                                            <option value="ROLE_USER">USER</option>
+                                                            <option value="ROLE_ADMIN">ADMIN</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-grid col-6 mx-auto">
+                                                        <input class="btn btn-success" type="submit"
+                                                               value="Add new user"/>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="webjars/jquery/3.7.1/jquery.js"></script>
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 
@@ -361,23 +744,29 @@
             .then(users => {
                 users.forEach(user => {
                     let tableFilling = `$(
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.surname}</td>
-                            <td>${user.age}</td>
-                            <td>${user.email}</td>
-                            <td>${user.roles.map(role => role.name.concat(" "))}</td>
-                            <td>
-                                <button type="button" data-user-id="${user.id}" data-action="edit" class="btn btn-info"
-                                data-toggle="modal" data-target="#editModal">Edit</button>
-                            </td>
-                            <td>
-                                <button type="button" data-user-id="${user.id}" data-action="delete" class="btn btn-danger"
-                                data-toggle="modal" data-target="#deleteModal">Delete</button>
-                            </td>
-                        </tr>
-                )`;
+                          <tr>
+                              <td>${user.id}</td>
+                              <td>${user.name}</td>
+                              <td>${user.surname}</td>
+                              <td>${user.age}</td>
+                              <td>${user.email}</td>
+                              <td>${user.roles.map(role => role.name.concat(" "))}</td>
+                              <td>
+                                  <button class="btn btn-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editModal"
+                            data-user-id="${user.id}">
+                        Edit</button>
+                              </td>
+                              <td>
+                                  <button class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            data-user-id="${user.id}">
+                        Delete</button>
+                              </td>
+                          </tr>
+                  )`;
                     table.append(tableFilling);
                 })
             })
@@ -406,15 +795,15 @@
             .then(res => res.json())
             .then(user => {
                 let tableFilling = `$(
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.surname}</td>
-                            <td>${user.age}</td>
-                            <td>${user.email}</td>
-                            <td>${user.roles.map(role => role.name.concat(" "))}</td>
-                        </tr>
-                )`;
+                          <tr>
+                              <td>${user.id}</td>
+                              <td>${user.name}</td>
+                              <td>${user.surname}</td>
+                              <td>${user.age}</td>
+                              <td>${user.email}</td>
+                              <td>${user.roles.map(role => role.name.concat(" "))}</td>
+                          </tr>
+                  )`;
                 table.append(tableFilling);
             })
     }
@@ -426,9 +815,11 @@
         const currentUser = await response.json();
         currentUserNavbar.innerHTML =
             `<strong>${currentUser.username}</strong>
-                 with roles:
-                 ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
+                   with roles:
+                   ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
     }
+
+    // ***************************************************************************************************************
 
 
     async function addNewUser() {
@@ -459,6 +850,323 @@
                 addUserForm.find('#AddNewUserRoles').val('');
             }
         })
+    }
+
+    // *********************************************************************************************************************************************************
+    // *********************************************************************************************************************************************************
+    // *********************************************************************************************************************************************************
+    // *********************************************************************************************************************************************************
+    // *********************************************************************************************************************************************************
+    // *********************************************************************************************************************************************************
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        // await showUserNameOnNavbar2()
+        // await fillTableOfAllUsers2();
+        // await fillTableAboutUser();
+        // await addNewUserForm2();
+        await DeleteModalHandler2();
+        await EditModalHandler2();
+    });
+
+
+    async function showUserNameOnNavbar2() {
+        const currentUserNavbar = document.getElementById("currentUserNavbar")
+        const currentUser = await dataAboutCurrentUser();
+        currentUserNavbar.innerHTML =
+            `<strong>${currentUser.username}</strong>
+                 with roles:
+                 ${currentUser.roles.map(role => role.name.substring(5).concat(" ")).toString().replaceAll(",", "")}`;
+    }
+
+    async function dataAboutAllUsers() {
+        const response = await fetch("/api/users");
+        return await response.json();
+    }
+
+    async function dataAboutCurrentUser() {
+        const response = await fetch("/api/users/currentUser")
+        return await response.json();
+    }
+
+
+    async function getUserDataById(id) {
+        const response = await fetch(`/api/users/${id}`);
+        return await response.json();
+    }
+
+
+    async function deleteUserData(id) {
+        await fetch(`/api/users/${id}`, {method: 'DELETE'});
+    }
+
+
+    async function getRoles() {
+        const response = await fetch(url + "roles");
+        return await response.json();
+    }
+
+
+    async function fillTableOfAllUsers2() {
+        const usersTable = document.getElementById("allUsersTable");
+        // const users = await dataAboutAllUsers();
+        const users = await getTableWithUsers();
+
+// ************************************************************************************************************
+        let usersTableHTML = "";
+        for (let user of users) {
+            usersTableHTML +=
+                `<tr>
+                <td>${user.username}</td>
+                <td>${user.surname}</td>
+                <td>${user.password}</td>
+               <td>${user.roles.map(role => role.name
+                    // .substring(5)
+                    .concat(" "))
+                    .toString()
+                    .replaceAll(",", "")}</td>
+                <td>
+                    <button class="btn btn-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editModal"
+                            data-user-id="${user.id}">
+                        Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            data-user-id="${user.id}">
+                        Delete</button>
+                </td>
+            </tr>`;
+        }
+        usersTable.innerHTML = usersTableHTML;
+    }
+
+
+    async function fillTableAboutUser() {
+        const currentUserTable = document.getElementById("currentUserTable");
+        const currentUser = await dataAboutCurrentUser();
+
+        let currentUserTableHTML = "";
+        currentUserTableHTML +=
+            `<tr>
+            <td>${currentUser.username}</td>
+            <td>${currentUser.surname}</td>
+            <td>${currentUser.password}</td>
+            <td>${currentUser.roles.map(role => role.name
+                // .substring(5)
+                .concat(" "))
+                .toString()
+                .replaceAll(",", "")}</td>
+        </tr>`
+        currentUserTable.innerHTML = currentUserTableHTML;
+    }
+
+
+    async function fillModal(modal) {
+
+        modal.addEventListener("show.bs.modal", async function (event) {
+            console.log(event.relatedTarget);
+
+            const userId = event.relatedTarget.dataset.userId;
+            const user = await getUserDataById(userId);
+
+            const modalBody = modal.querySelector(".modal-body");
+
+
+            const idInput = modalBody.querySelector("input[data-user-id='id']");
+            const nameInput = modalBody.querySelector("input[data-user-id='name']");
+            const ageInput = modalBody.querySelector("input[data-user-id='age']");
+            const emailInput = modalBody.querySelector("input[data-user-id='email']");
+            const surnameInput = modalBody.querySelector("input[data-user-id='surname']");
+            const passwordInput = modalBody.querySelector("input[data-user-id='password']");
+            if (passwordInput !== null) {
+                passwordInput.value = user.password;
+            }
+            idInput.value = user.id;
+            nameInput.value = user.name;
+            ageInput.value = user.age;
+            emailInput.value = user.email;
+            surnameInput.value = user.surname;
+
+            let rolesSelect = HTMLSelectElement;
+
+            let rolesSelectDelete = modalBody.querySelector("select[data-user-id='allRolesDelete']");
+            let rolesSelectEdit = modalBody.querySelector("select[data-user-id='allRolesEdit']");
+            let userRolesHTML = "";
+
+            if (rolesSelectDelete !== null) {
+                rolesSelect = rolesSelectDelete;
+                for (let i = 0; i < user.roles.length; i++) {
+                    userRolesHTML +=
+                        `<option value="${user.roles[i].name}">${user.roles[i].name
+                            // .substring(5)
+                            .concat(" ")
+                            .toString()
+                            .replaceAll(",", "")}</option>`;
+                }
+            } else if (rolesSelectEdit !== null) {
+                rolesSelect = rolesSelectEdit;
+                userRolesHTML +=
+                    `<option value="USER">USER</option>
+                 <option value="ADMIN">ADMIN</option>`
+            }
+
+            rolesSelect.innerHTML = userRolesHTML;
+        })
+    }
+
+
+    async function sendDataEditUser(user, id) {
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            return {success: false, errors: errorData};
+        }
+
+        return {success: true};
+
+    }
+
+    const modalEdit = document.getElementById("editModal");
+    let userIdToEdit = null;
+
+
+    modalEdit.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        userIdToEdit = button.getAttribute('data-user-id');
+    });
+
+    async function EditModalHandler2() {
+        await fillModal(modalEdit);
+    }
+
+    modalEdit.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const rolesSelected = document.getElementById("allRolesEdit");
+
+        let allRoles = await getRoles();
+        let AllRoles = {};
+        for (let role of allRoles) {
+            AllRoles[role.name] = role.id;
+        }
+        let roles = [];
+        // for (let option of rolesSelected.selectedOptions) {
+        //     if (Object.keys(AllRoles).indexOf(option.value) != -1) {
+        //         roles.push({roleId: AllRoles[option.value], name: option.value});
+        //     }
+        // }
+        let em = document.getElementById('allRolesEdit');
+        for (let i = 0; i < em.length; i++) {
+            console.log("***************************", em[i].value, em[i].selected)
+            if (em[i].selected) {
+                roles.push(em[i].value)
+            }
+        }
+
+        let user = {
+            id: userIdToEdit,
+            name: document.getElementById("nameEdit").value,
+            email: document.getElementById("emailEdit").value,
+            age: document.getElementById("ageEdit").value,
+            surname: document.getElementById("surnameEdit").value,
+            password: document.getElementById("passwordEdit").value,
+            roles: roles
+        };
+
+        const result = await sendDataEditUser(user, userIdToEdit);
+
+        if (result.success) {
+            const modalBootstrap = bootstrap.Modal.getInstance(modalEdit);
+            modalBootstrap.hide();
+            await fillTableOfAllUsers2();
+        }
+    });
+
+
+    const modalDelete = document.getElementById("deleteModal");
+    let userIdToDelete = null;
+
+    async function DeleteModalHandler2() {
+        await fillModal(modalDelete);
+    }
+
+    modalDelete.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        userIdToDelete = button.getAttribute('data-user-id');
+    });
+
+    const formDelete = document.getElementById("formDeleteUser");
+    formDelete.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            await deleteUserData(userIdToDelete);
+            await fillTableOfAllUsers2();
+            const modalBootstrap = bootstrap.Modal.getInstance(modalDelete);
+            modalBootstrap.hide();
+        }
+    )
+
+
+    async function createNewUser(user) {
+        const response = await fetch("/api/users", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            return {success: false, errors: errorData};
+        }
+
+        return {success: true};
+    }
+
+    async function addNewUserForm2() {
+        const newUserForm = document.getElementById("addNewUser");
+
+        newUserForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const name = newUserForm.querySelector("#usernameNew").value.trim();
+            const surname = newUserForm.querySelector("#surnameNew").value.trim();
+            const password = newUserForm.querySelector("#passwordNew").value.trim();
+            const rolesSelected = document.getElementById("rolesNew");
+
+            let allRoles = await getRoles();
+            let AllRoles = {};
+            for (let role of allRoles) {
+                AllRoles[role.name] = role.id;
+            }
+            let roles = [];
+            for (let option of rolesSelected.selectedOptions) {
+                if (Object.keys(AllRoles).indexOf(option.value) !== -1) {
+                    roles.push({roleId: AllRoles[option.value], name: option.value});
+                }
+            }
+
+            const newUserData = {
+                username: name,
+                surname: surname,
+                password: password,
+                roles: roles
+            };
+
+            const result = await createNewUser(newUserData);
+
+            if (result.success) {
+                newUserForm.reset();
+                document.querySelector('#admin-users-table-tab').click();
+                await fillTableOfAllUsers2();
+            }
+        });
     }
 
 
