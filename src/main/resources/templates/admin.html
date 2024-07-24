@@ -457,15 +457,6 @@
                 addUserForm.find('#AddNewUserEmail').val('');
                 addUserForm.find('#AddNewUserPassword').val('');
                 addUserForm.find('#AddNewUserRoles').val('');
-            } else {
-                let body = await response.json();
-                let alert = `<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="sharaBaraMessageError">
-                            ${body.info}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>`;
-                addUserForm.prepend(alert)
             }
         })
     }
