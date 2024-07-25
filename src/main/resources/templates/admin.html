@@ -526,12 +526,12 @@
     });
 
     async function getUserById(id) {
-        const response = await fetch(`/api/users/${id}`);
+        const response = await fetch(url + `${id}`);
         return await response.json();
     }
 
     async function deleteUser(id) {
-        await fetch(`/api/users/${id}`, {method: 'DELETE'});
+        await fetch(url + `${id}`, {method: 'DELETE'});
     }
 
     async function getRoles() {
