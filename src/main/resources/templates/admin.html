@@ -86,8 +86,6 @@
 
                                         <div class="modal-body">
                                             <form id="formEditUser">
-
-
                                                 <fieldset disabled>
                                                     <div class="mb-3">
                                                         <label class="col-form-label"
@@ -123,8 +121,6 @@
                                                           id="surnameEditError">
                                                                         </span>
                                                 </div>
-
-
                                                 <div class="mb-3">
                                                     <label class="col-form-label"
                                                            for="ageEdit"><b>Age</b></label>
@@ -136,10 +132,6 @@
                                                           id="ageEditError">
                                                                         </span>
                                                 </div>
-                                                <!--******************************************************************************************-->
-                                                <!--EDIT USER MODEL-->
-                                                <!--******************************************************************************************-->
-
                                                 <div class="mb-3">
                                                     <label class="col-form-label"
                                                            for="emailEdit"><b>Email</b></label>
@@ -151,8 +143,6 @@
                                                           id="emailEditError">
                                                                         </span>
                                                 </div>
-
-
                                                 <div class="mb-2">
                                                     <label class="col-form-label"
                                                            for="passwordEdit"><b>Password</b></label>
@@ -201,13 +191,6 @@
                                                     data-bs-dismiss="modal" type="button">
                                             </button>
                                         </div>
-
-
-                                        <!--******************************************************************************************-->
-                                        <!--DELETE USER MODEL-->
-                                        <!--******************************************************************************************-->
-
-
                                         <div class="modal-body">
                                             <form id="formDeleteUser">
                                                 <fieldset disabled>
@@ -296,7 +279,6 @@
                 <div aria-labelledby="nav-profile-tab" class="tab-pane fade" id="nav-profile" role="tabpanel">
                     <div class="container-fluid p-2">
                         <h3>Add new user</h3>
-
                         <div class="d-flex modal-body justify-content-center bg-white p-2">
                             <div class="d-flex flex-column  text-center">
                                 <div class="container-fluid">
@@ -599,7 +581,6 @@
             let rolesSelectDelete = modalBody.querySelector("select[data-user-id='allRolesDelete']");
             let rolesSelectEdit = modalBody.querySelector("select[data-user-id='allRolesEdit']");
             let userRolesHTML = "";
-            // console.log("ROLES  SELECTED BEFORE ", user.roles)
             if (rolesSelectDelete !== null) {
                 rolesSelect = rolesSelectDelete;
                 for (let i = 0; i < user.roles.length; i++) {
