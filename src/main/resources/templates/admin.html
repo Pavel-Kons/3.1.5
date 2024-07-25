@@ -595,7 +595,7 @@
             let rolesSelectDelete = modalBody.querySelector("select[data-user-id='allRolesDelete']");
             let rolesSelectEdit = modalBody.querySelector("select[data-user-id='allRolesEdit']");
             let userRolesHTML = "";
-
+            // console.log("ROLES  SELECTED BEFORE ", user.roles)
             if (rolesSelectDelete !== null) {
                 rolesSelect = rolesSelectDelete;
                 for (let i = 0; i < user.roles.length; i++) {
@@ -604,13 +604,29 @@
                             // .substring(5)
                             .concat(" ")
                             .toString()
-                            .replaceAll(",", "")}</option>`;
+                            .replaceAll(",", "")
+                        }</option>`;
                 }
             } else if (rolesSelectEdit !== null) {
+                const selRoles = user.roles.map(role => role.name
+                    .concat(" "))
+                    .toString()
+                    .replaceAll(",", "")
+                console.log(selRoles)
+                console.log(selRoles.includes("ADMIN"))
+                console.log(selRoles.includes("USER"))
+                let adminSelected = ""
+                let userSelected = ""
+                if (selRoles.includes("ADMIN")) {
+                    adminSelected = " selected"
+                }
+                if (selRoles.includes("USER")) {
+                    userSelected = " selected"
+                }
                 rolesSelect = rolesSelectEdit;
                 userRolesHTML +=
-                    `<option value="USER">USER</option>
-                 <option value="ADMIN">ADMIN</option>`
+                    `<option value="USER"${userSelected}>USER</option>
+                 <option value="ADMIN"${adminSelected}>ADMIN</option>`
             }
 
             rolesSelect.innerHTML = userRolesHTML;
