@@ -303,21 +303,38 @@
                                     <div class="d-flex justify-content-center">
                                         <div class="form-group align-items-center">
                                             <form data-hidden=true id="defaultSomeForm">
-                                                <input class="form-control" id="AddNewUserFirstName" placeholder="Name"
-                                                       type="text">
-                                                <br>
-                                                <input class="form-control" id="AddNewUserLastName"
-                                                       placeholder="Last name" type="text">
-                                                <br>
-                                                <input class="form-control" id="AddNewUserAge" placeholder="age"
-                                                       type="number">
-                                                <br>
-                                                <input class="form-control" id="AddNewUserPassword"
-                                                       placeholder="password" type="password">
-                                                <br>
-                                                <input class="form-control" id="AddNewUserEmail" placeholder="Email"
-                                                       type="email">
-                                                <br>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold" for="AddNewUserFirstName">First
+                                                        name</label>
+                                                    <input class="form-control" id="AddNewUserFirstName"
+                                                           placeholder="First name"
+                                                           type="text">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold" for="AddNewUserLastName">Last
+                                                        name</label>
+                                                    <input class="form-control" id="AddNewUserLastName"
+                                                           placeholder="Last name" type="text">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold" for="AddNewUserAge">Age</label>
+                                                    <input class="form-control" id="AddNewUserAge" placeholder="Age"
+                                                           type="number">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold"
+                                                           for="AddNewUserEmail">Email</label>
+                                                    <input class="form-control" id="AddNewUserEmail" placeholder="Email"
+                                                           type="email">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold"
+                                                           for="AddNewUserPassword">Password</label>
+                                                    <input class="form-control" id="AddNewUserPassword"
+                                                           placeholder="Password" type="password">
+                                                </div>
+
+                                                <label class="fw-bold"> Role </label>
                                                 <select aria-label="multiple select example" class="form-select fw-bold"
                                                         id="AddNewUserRoles" multiple name="selectedRoles" size="2">
                                                     <option value="USER">USER</option>
