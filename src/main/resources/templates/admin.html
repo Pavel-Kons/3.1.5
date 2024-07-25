@@ -385,7 +385,6 @@
 <script>
     const url = "http://localhost:8080/api/users/"
 
-
     $(async function () {
         await getTableWithUsers();
         await getTableWithCurrentUsers();
@@ -407,7 +406,6 @@
             body: JSON.stringify(user)
         })
     }
-
 
     async function getTableWithUsers() {
         let table = $('#allUsersTable tbody');
@@ -445,7 +443,6 @@
                 })
             })
 
-
         $("#mainTableWithUsers").find('button').on('click', (event) => {
             let defaultModal = $('#someDefaultModal');
 
@@ -458,7 +455,6 @@
             defaultModal.modal('show');
         })
     }
-
 
     async function getTableWithCurrentUsers() {
         let table = $('#currentUserTable tbody');
@@ -481,7 +477,6 @@
             })
     }
 
-
     async function getCurrentUserNavbar() {
         const currentUserNavbar = document.getElementById("currentUserNavbar")
         const response = await fetch(url + "currentUser")
@@ -489,9 +484,11 @@
         currentUserNavbar.innerHTML =
             `<strong>${currentUser.username}</strong>
                    with roles:
-                   ${currentUser.roles.map(role => role.name.concat(" ")).toString().replaceAll(",", "")}`;
+                   ${currentUser.roles.map(role => role.name
+                .concat(" "))
+                .toString()
+                .replaceAll(",", "")}`;
     }
-
 
     async function addNewUser() {
         $('#addNewUserButton').click(async () => {
@@ -523,37 +520,26 @@
         })
     }
 
-    // *********************************************************************************************************************************************************
-    // *********************************************************************************************************************************************************
-    // *********************************************************************************************************************************************************
-    // *********************************************************************************************************************************************************
-    // *********************************************************************************************************************************************************
-    // *********************************************************************************************************************************************************
-
     document.addEventListener('DOMContentLoaded', async function () {
-        await DeleteModalHandler2();
+        await deleteModal();
         await EditModalHandler2();
     });
 
-
-    async function getUserDataById(id) {
+    async function getUserById(id) {
         const response = await fetch(`/api/users/${id}`);
         return await response.json();
     }
 
-
-    async function deleteUserData(id) {
+    async function deleteUser(id) {
         await fetch(`/api/users/${id}`, {method: 'DELETE'});
     }
-
 
     async function getRoles() {
         const response = await fetch(url + "roles");
         return await response.json();
     }
 
-
-    async function fillTableOfAllUsers2() {
+    async function getUserTable() {
         const usersTable = document.getElementById("allUsersTable");
         const users = await getTableWithUsers();
 
@@ -565,7 +551,6 @@
                 <td>${user.surname}</td>
                 <td>${user.password}</td>
                <td>${user.roles.map(role => role.name
-                    // .substring(5)
                     .concat(" "))
                     .toString()
                     .replaceAll(",", "")}</td>
@@ -588,16 +573,11 @@
         usersTable.innerHTML = usersTableHTML;
     }
 
-
-    async function fillModal(modal) {
-
+    async function getModal(modal) {
         modal.addEventListener("show.bs.modal", async function (event) {
             const userId = event.relatedTarget.dataset.userId;
-            const user = await getUserDataById(userId);
-
+            const user = await getUserById(userId);
             const modalBody = modal.querySelector(".modal-body");
-
-
             const idInput = modalBody.querySelector("input[data-user-id='id']");
             const nameInput = modalBody.querySelector("input[data-user-id='name']");
             const ageInput = modalBody.querySelector("input[data-user-id='age']");
@@ -624,7 +604,6 @@
                 for (let i = 0; i < user.roles.length; i++) {
                     userRolesHTML +=
                         `<option value="${user.roles[i].name}">${user.roles[i].name
-                            // .substring(5)
                             .concat(" ")
                             .toString()
                             .replaceAll(",", "")
@@ -656,26 +635,21 @@
         })
     }
 
-
-    async function sendDataEditUser(user, id) {
+    async function sendEditUser(user, id) {
         const response = await fetch(url, {
             method: "PUT",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user)
         });
-
         if (!response.ok) {
             const errorData = await response.json();
             return {success: false, errors: errorData};
         }
-
         return {success: true};
-
     }
 
     const modalEdit = document.getElementById("editModal");
     let userIdToEdit = null;
-
 
     modalEdit.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -683,14 +657,11 @@
     });
 
     async function EditModalHandler2() {
-        await fillModal(modalEdit);
+        await getModal(modalEdit);
     }
 
     modalEdit.addEventListener("submit", async function (event) {
         event.preventDefault();
-
-        const rolesSelected = document.getElementById("allRolesEdit");
-
         let allRoles = await getRoles();
         let AllRoles = {};
         for (let role of allRoles) {
@@ -715,21 +686,20 @@
             roles: roles
         };
 
-        const result = await sendDataEditUser(user, userIdToEdit);
+        const result = await sendEditUser(user, userIdToEdit);
 
         if (result.success) {
             const modalBootstrap = bootstrap.Modal.getInstance(modalEdit);
             modalBootstrap.hide();
-            await fillTableOfAllUsers2();
+            await getUserTable();
         }
     });
-
 
     const modalDelete = document.getElementById("deleteModal");
     let userIdToDelete = null;
 
-    async function DeleteModalHandler2() {
-        await fillModal(modalDelete);
+    async function deleteModal() {
+        await getModal(modalDelete);
     }
 
     modalDelete.addEventListener('show.bs.modal', function (event) {
@@ -740,8 +710,8 @@
     const formDelete = document.getElementById("formDeleteUser");
     formDelete.addEventListener("submit", async function (event) {
             event.preventDefault();
-            await deleteUserData(userIdToDelete);
-            await fillTableOfAllUsers2();
+            await deleteUser(userIdToDelete);
+            await getUserTable();
             const modalBootstrap = bootstrap.Modal.getInstance(modalDelete);
             modalBootstrap.hide();
         }
